@@ -222,7 +222,7 @@
 
     document.getElementById("hdrFaculty").textContent = m.facultyTitle;
     document.getElementById("hdrSub").textContent =
-      "Research E-Book · [" + m.university + "]";
+      "Researcher E-Book · [" + m.university + "]";
 
     // Build section jump list (0-based page index)
     secs = [
