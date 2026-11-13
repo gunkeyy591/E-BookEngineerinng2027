@@ -78,9 +78,110 @@
     );
   }
 
+  var DISCIPLINES = [
+    {
+      key: "civil",
+      titleEn: "Civil Engineering",
+      titleTh: "ภาควิชาวิศวกรรมโยธา"
+    },
+    {
+      key: "industrial",
+      titleEn: "Industrial Engineering",
+      titleTh: "ภาควิชาวิศวกรรมอุตสาหการ"
+    },
+    {
+      key: "mechanical",
+      titleEn: "Mechanical Engineering",
+      titleTh: "ภาควิชาวิศวกรรมเครื่องกล"
+    },
+    {
+      key: "electrical-computer",
+      titleEn: "Electrical & Computer Engineering",
+      titleTh: "ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์"
+    }
+  ];
+
+  function resolveDisciplineKey(r) {
+    var explicit = String(r.discipline || "").toLowerCase().trim();
+    for (var i = 0; i < DISCIPLINES.length; i++) {
+      if (DISCIPLINES[i].key === explicit) return explicit;
+    }
+    var txt = ((r.deptNameEn || "") + " " + (r.deptNameTh || "")).toLowerCase();
+    if (txt.indexOf("civil") !== -1 || txt.indexOf("โยธา") !== -1) return "civil";
+    if (txt.indexOf("industrial") !== -1 || txt.indexOf("อุตสาหการ") !== -1) return "industrial";
+    if (txt.indexOf("mechanical") !== -1 || txt.indexOf("เครื่องกล") !== -1) return "mechanical";
+    if (
+      txt.indexOf("electrical") !== -1 ||
+      txt.indexOf("computer") !== -1 ||
+      txt.indexOf("ไฟฟ้า") !== -1 ||
+      txt.indexOf("คอมพิวเตอร์") !== -1
+    ) {
+      return "electrical-computer";
+    }
+    return "civil";
+  }
+
+  // Rank order: Prof. > Assoc. Prof. > Asst. Prof. > Dr. > Lecturer; Ph.D. breaks ties within same rank
+  function getAcademicRankScore(r) {
+    if (typeof r.rankScore === "number") return r.rankScore;
+    var titleTxt = (
+      (r.academicTitle || "") +
+      " " +
+      (r.fullNameEn || "") +
+      " " +
+      (r.fullName || "")
+    ).trim();
+    var hasPhd = /(?:ดร\.|(?:^|[\s.])dr\.(?=\s|[a-z]|$)|ph\.?d\.?)/i.test(titleTxt);
+    var tier = 1;
+    // Match Assoc./Asst. before Prof. so รศ./ผศ./Assoc./Asst. never match ศ./Prof.
+    if (/(?:รองศาสตราจารย์|รศ\.|assoc\.?\s*prof\.?|associate\s+professor)/i.test(titleTxt)) {
+      tier = 4;
+    } else if (/(?:ผู้ช่วยศาสตราจารย์|ผศ\.|asst\.?\s*prof\.?|assistant\s+professor)/i.test(titleTxt)) {
+      tier = 3;
+    } else if (/(?:ศาสตราจารย์|(?:^|\s)ศ\.(?=[\s.]|ดร|$)|(?:^|\s)prof\.(?=[\s.]|dr|$)|professor)/i.test(titleTxt)) {
+      tier = 5;
+    } else if (hasPhd) {
+      tier = 2;
+    }
+    return tier * 10 + (hasPhd ? 1 : 0);
+  }
+
+  function buildGroupedResearchers() {
+    var raw = (ebookData.researchers || []).map(function (r, idx) {
+      return {
+        item: r,
+        idx: idx,
+        disc: resolveDisciplineKey(r),
+        score: getAcademicRankScore(r)
+      };
+    });
+    var groups = DISCIPLINES.map(function (d) {
+      var members = raw
+        .filter(function (entry) {
+          return entry.disc === d.key;
+        })
+        .sort(function (a, b) {
+          if (b.score !== a.score) return b.score - a.score;
+          return a.idx - b.idx;
+        })
+        .map(function (entry) {
+          return entry.item;
+        });
+      return { discipline: d, researchers: members };
+    });
+    var ordered = [];
+    groups.forEach(function (g) {
+      g.researchers.forEach(function (r) {
+        ordered.push(r);
+      });
+    });
+    return { groups: groups, ordered: ordered };
+  }
+
   function buildBookHTML() {
     var m = ebookData.meta;
-    var list = ebookData.researchers || [];
+    var grouped = buildGroupedResearchers();
+    var list = grouped.ordered;
     // Total pages = 6 + 2 * N (Always EVEN so Front Cover & Back Cover work properly)
     var totalPages = 6 + list.length * 2;
 
@@ -101,55 +202,60 @@
     });
     secs.push(["Back cover", totalPages - 1]);
 
-    // Build TOC items
+    // Build TOC items grouped by discipline and sorted descending by academic rank
     var tocHtml =
       '<li data-go="4" class="sec">' +
       '<div class="toc-row">' +
       '<span class="toc-title">Engineering Research Overview</span>' +
       '<span class="dots"></span>' +
       '<span class="toc-page">5</span>' +
-      '</div>' +
-      '</li>';
-    list.forEach(function (r, idx) {
-      var pNum = 6 + idx * 2;
-      var pIdx = pNum - 1;
-      var numStr = (idx + 1 < 10 ? "0" : "") + (idx + 1);
-      var deptText = r.deptNameTh || "";
-      if (r.majorTh) {
-        var cleanDept = (r.deptNameTh || "").replace(/^ภาควิชา/, "").trim();
-        var cleanMajor = r.majorTh.replace(/^สาขาวิชา/, "").trim();
-        if (
-          cleanMajor &&
-          cleanDept &&
-          cleanMajor !== cleanDept &&
-          cleanDept.indexOf(cleanMajor) === -1 &&
-          cleanMajor.indexOf(cleanDept) === -1
-        ) {
-          deptText += " (" + r.majorTh + ")";
-        }
-      }
+      "</div>" +
+      "</li>";
+    var seqIdx = 0;
+    grouped.groups.forEach(function (g) {
       tocHtml +=
-        '<li data-go="' +
-        pIdx +
-        '">' +
-        '<div class="toc-row">' +
-        '<span class="toc-num">' +
-        numStr +
+        '<li class="toc-cat">' +
+        '<span class="toc-cat-en">' +
+        esc(g.discipline.titleEn) +
         "</span>" +
-        '<span class="toc-title">' +
-        esc(fullNameTh(r)) +
+        '<span class="toc-cat-th">' +
+        esc(g.discipline.titleTh) +
         "</span>" +
-        '<span class="dots"></span>' +
-        '<span class="toc-page">' +
-        pNum +
-        "–" +
-        (pNum + 1) +
-        "</span>" +
-        "</div>" +
-        (deptText
-          ? '<div class="toc-dept">' + esc(deptText) + "</div>"
-          : "") +
         "</li>";
+      if (!g.researchers.length) {
+        tocHtml +=
+          '<li class="toc-empty">— ยังไม่มีข้อมูลผลงานวิจัย (No profiles yet)</li>';
+        return;
+      }
+      g.researchers.forEach(function (r) {
+        var pNum = 6 + seqIdx * 2;
+        var pIdx = pNum - 1;
+        var numStr = (seqIdx + 1 < 10 ? "0" : "") + (seqIdx + 1);
+        seqIdx++;
+        var subLabel = r.majorTh || r.deptNameTh || "";
+        tocHtml +=
+          '<li data-go="' +
+          pIdx +
+          '">' +
+          '<div class="toc-row">' +
+          '<span class="toc-num">' +
+          numStr +
+          "</span>" +
+          '<span class="toc-title">' +
+          esc(fullNameTh(r)) +
+          "</span>" +
+          '<span class="dots"></span>' +
+          '<span class="toc-page">' +
+          pNum +
+          "–" +
+          (pNum + 1) +
+          "</span>" +
+          "</div>" +
+          (subLabel
+            ? '<div class="toc-dept">' + esc(subLabel) + "</div>"
+            : "") +
+          "</li>";
+      });
     });
 
     var html = [];
@@ -256,7 +362,7 @@
 
     // 4 · CONTENTS
     html.push(
-      '<div class="page"><div class="inner">' +
+      '<div class="page contents-page"><div class="inner">' +
         '<div class="eyebrow"><span>Navigate · Table of Contents</span><span>Faculty of Engineering</span></div>' +
         '<h2>Contents <span class="th-sub" style="font:500 13.5px \'Prompt\',\'Sarabun\',sans-serif;color:var(--muted);text-transform:none;letter-spacing:0;margin-left:auto">สารบัญผลงานวิจัย</span></h2>' +
         '<ul class="toc">' +
@@ -666,7 +772,7 @@
     pf.on("flip", upd);
 
     // Bind TOC links inside book
-    newBook.querySelectorAll(".toc li").forEach(function (li) {
+    newBook.querySelectorAll(".toc li[data-go]").forEach(function (li) {
       li.addEventListener("click", function (e) {
         e.stopPropagation();
         pf.flip(+li.dataset.go);
@@ -896,7 +1002,7 @@
       return;
     }
     var matches = [];
-    (ebookData.researchers || []).forEach(function (r, idx) {
+    buildGroupedResearchers().ordered.forEach(function (r, idx) {
       var pNum = 6 + idx * 2;
       var text = [
         r.academicTitle,

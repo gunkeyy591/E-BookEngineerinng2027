@@ -19,7 +19,7 @@ https://gunkeyy591.github.io/E-BookEngineerinng2027/
   1. หน้าปก (Front Cover)
   2. ปกใน (Inside Cover) พร้อมภาพอาคารคณะ
   3. สารจากคณบดี (Foreword)
-  4. สารบัญผลงานวิจัย (Contents) พร้อมคำแนะนำการใช้งาน
+  4. สารบัญผลงานวิจัย (Contents) แยกหมวดตามภาควิชา (`Civil`, `Industrial`, `Mechanical`, `Electrical & Computer`) โดยเรียงรายชื่อจากตำแหน่งทางวิชาการสูงสุดลงมา พร้อมคำแนะนำการใช้งาน
   5. หน้าคั่นหมวด (Engineering Research Divider)
   6. หน้าผลงานวิจัยคณาจารย์แต่ละท่าน (คนละ 2 หน้า: EN / TH)
   7. ปกหลัง (Back Cover)

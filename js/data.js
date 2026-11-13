@@ -40,8 +40,110 @@ window.DEFAULT_EBOOK_DATA = {
   },
   researchers: [
     {
-      id: "res-1",
+      id: "res-4",
       deptCode: "01",
+      deptNameEn: "Department of Civil Engineering",
+      majorEn: "Major: Structural Engineering",
+      deptNameTh: "ภาควิชาวิศวกรรมโยธา",
+      majorTh: "สาขาวิชาวิศวกรรมโครงสร้าง",
+      academicTitle: "ผศ. ดร.",
+      fullName: "สสิกรณณ์ เหลืองวิชชเจริญ",
+      fullNameEn: "Asst. Prof. Dr. Sasikorn Leungvichcharoen",
+      email: "",
+      portraitText: "Portrait\n3 : 4",
+      portraitUrl: "img/sasikorn-portrait.jpg",
+      topicEn:
+        "Structural Analysis, Wave Propagation, and Practical Engineering Applications",
+      topicTh:
+        "การวิเคราะห์โครงสร้าง การแพร่กระจายคลื่น และการประยุกต์ใช้ทางวิศวกรรม",
+      biographyEn:
+        "My research has focused on structural mechanics and elastic wave propagation, particularly the effects of interfaces, material properties, and initial stresses on structural response. I am also interested in applying structural analysis and numerical methods to practical civil engineering problems, including prefabricated steel systems and engineering information management.",
+      biography:
+        "งานวิจัยที่สนใจเกี่ยวข้องกับกลศาสตร์โครงสร้างและการแพร่กระจายคลื่นในวัสดุยืดหยุ่น โดยเฉพาะผลของรอยต่อ คุณสมบัติวัสดุ และความเค้นเริ่มต้นต่อการตอบสนองของโครงสร้าง นอกจากนี้ ยังสนใจประยุกต์ใช้การวิเคราะห์โครงสร้างและวิธีเชิงตัวเลขในงานวิศวกรรมโยธา เช่น ระบบโครงสร้างเหล็กสำเร็จรูปและการจัดการข้อมูลทางวิศวกรรม",
+      interestsLabelEn: "Research Interests:",
+      interestsEn: [
+        "Structural mechanics and analysis of elastic waves",
+        "Finite element analysis and numerical methods",
+        "Steel structures, prefabrication and modular systems"
+      ],
+      interestsLabelTh: "หัวข้อวิจัยที่สนใจ:",
+      interestsTh: [
+        "กลศาสตร์โครงสร้างและการวิเคราะห์คลื่นในวัสดุยืดหยุ่น",
+        "การวิเคราะห์ไฟไนต์เอลิเมนต์และวิธีเชิงตัวเลข",
+        "โครงสร้างเหล็ก ระบบสำเร็จรูป และโครงสร้างแบบโมดูลาร์"
+      ],
+      interests: [
+        "Structural Mechanics & Elastic Waves",
+        "Finite Element & Numerical Methods",
+        "Prefabricated & Modular Steel Systems"
+      ],
+      inFutureLabelEn: "Future Research Directions",
+      inFutureEn:
+        "I plan to continue studying structural behavior using analytical and numerical approaches, with an emphasis on problems that can be linked to engineering practice and the development of simple computational tools.",
+      afterGradLabelEn: "Research and Applications",
+      afterGradEn:
+        "My work includes studies of elastic-wave behavior and structural response, together with collaborative work on knock-down steel frame systems and digital preservation of engineering drawings for building management.",
+      inFutureLabelTh: "แนวทางการวิจัยในอนาคต",
+      inFutureTh:
+        "มุ่งศึกษาพฤติกรรมของโครงสร้างด้วยวิธีวิเคราะห์และวิธีเชิงตัวเลขอย่างต่อเนื่อง โดยเน้นปัญหาที่เชื่อมโยงกับงานวิศวกรรมจริง และการพัฒนาเครื่องมือคำนวณที่ใช้งานได้ไม่ซับซ้อน",
+      afterGradLabelTh: "งานวิจัยและการประยุกต์ใช้",
+      afterGradTh:
+        "ผลงานที่ผ่านมาเกี่ยวข้องกับพฤติกรรมการแพร่กระจายคลื่นและการตอบสนองของโครงสร้าง รวมทั้งความร่วมมือด้านระบบโครงสร้างเหล็กแบบถอดประกอบ และการอนุรักษ์แบบก่อสร้างเดิมในรูปแบบดิจิทัลเพื่อการบริหารจัดการอาคาร",
+      figures: [
+        {
+          url: "img/sasikorn-fig1.jpg",
+          captionEn:
+            "Elastic wave cloaking simulation (Wijeyewickrema & Leungvichcharoen, 2022, Fig. 3)",
+          captionTh:
+            "ผลการจำลองคลื่นในระบบพรางคลื่น (Wijeyewickrema และ Leungvichcharoen, 2022, รูปที่ 3)"
+        },
+        {
+          url: "img/sasikorn-fig2.jpg",
+          captionEn:
+            "Knock-down steel frame prototype (NUSTARC 2025 presentation)",
+          captionTh: "โครงสร้างเหล็กแบบถอดประกอบ (สไลด์นำเสนอ NUSTARC 2025)"
+        }
+      ],
+      pubsLabelEn: "Selected Publications and Conference Presentations",
+      publicationsEn: [
+        "Wijeyewickrema, A. C. and Leungvichcharoen, S. (2022). Effect of Imperfect Contact on the Cloaking of a Circular Elastic Cylinder from Antiplane Elastic Waves. Mechanics Research Communications, 124, 103964.",
+        "Tuttipongsawat, P., Wijeyewickrema, A. C. and Leungvichcharoen, S. (2020). Cloaking of a Circular Cylindrical Elastic Inclusion from Antiplane Elastic Waves and Resonance Effects. Wave Motion, 94, 102491.",
+        "Leungvichcharoen, S., Subsomboon, K., Kaewpoonsuk, P., Wijeyewickrema, A. C. and Moraray, P. (2025). Sustainable Knock-Down Housing Steel Structural Frame System: Reducing Transport Energy and Material Waste through Precision Prefabrication. NUSTARC 2025 (Abstract only)."
+      ],
+      pubsLabelTh: "ผลงานตีพิมพ์และนำเสนอที่คัดเลือก",
+      publicationsTh: [
+        "Wijeyewickrema, A. C. and Leungvichcharoen, S. (2022). Effect of Imperfect Contact on the Cloaking of a Circular Elastic Cylinder from Antiplane Elastic Waves. Mechanics Research Communications, 124, 103964.",
+        "Tuttipongsawat, P., Wijeyewickrema, A. C. and Leungvichcharoen, S. (2020). Cloaking of a Circular Cylindrical Elastic Inclusion from Antiplane Elastic Waves and Resonance Effects. Wave Motion, 94, 102491.",
+        "Leungvichcharoen, S., Subsomboon, K., Kaewpoonsuk, P., Wijeyewickrema, A. C. and Moraray, P. (2025). Sustainable Knock-Down Housing Steel Structural Frame System: Reducing Transport Energy and Material Waste through Precision Prefabrication. NUSTARC 2025 (Abstract only)."
+      ],
+      publications: [
+        "Wijeyewickrema, A. C. and Leungvichcharoen, S. (2022). Effect of Imperfect Contact on the Cloaking of a Circular Elastic Cylinder from Antiplane Elastic Waves. Mechanics Research Communications, 124, 103964.",
+        "Tuttipongsawat, P., Wijeyewickrema, A. C. and Leungvichcharoen, S. (2020). Cloaking of a Circular Cylindrical Elastic Inclusion from Antiplane Elastic Waves and Resonance Effects. Wave Motion, 94, 102491.",
+        "Leungvichcharoen, S., Subsomboon, K., Kaewpoonsuk, P., Wijeyewickrema, A. C. and Moraray, P. (2025). Sustainable Knock-Down Housing Steel Structural Frame System: Reducing Transport Energy and Material Waste through Precision Prefabrication. NUSTARC 2025 (Abstract only)."
+      ],
+      research: {
+        code: "01",
+        title:
+          "การวิเคราะห์โครงสร้าง การแพร่กระจายคลื่น และการประยุกต์ใช้ทางวิศวกรรม",
+        titleEn:
+          "Structural Analysis, Wave Propagation, and Practical Engineering Applications",
+        abstract:
+          "กลศาสตร์โครงสร้างและการแพร่กระจายคลื่นในวัสดุยืดหยุ่น การวิเคราะห์ไฟไนต์เอลิเมนต์และวิธีเชิงตัวเลข รวมถึงระบบโครงสร้างเหล็กสำเร็จรูปและการจัดการข้อมูลทางวิศวกรรม",
+        methodology:
+          "ใช้วิธีวิเคราะห์และวิธีเชิงตัวเลขศึกษาผลของรอยต่อ คุณสมบัติวัสดุ และความเค้นเริ่มต้นต่อการตอบสนองของโครงสร้างและระบบพรางคลื่น",
+        findings:
+          "ได้แบบจำลองการแพร่กระจายคลื่นยืดหยุ่นและการพัฒนาระบบโครงสร้างเหล็กแบบถอดประกอบรวมถึงการอนุรักษ์แบบก่อสร้างดิจิทัล",
+        figureCaption:
+          "ผลการจำลองคลื่นในระบบพรางคลื่น และโครงสร้างเหล็กแบบถอดประกอบ",
+        figureUrl: "img/sasikorn-fig1.jpg",
+        publication:
+          "Wijeyewickrema & Leungvichcharoen, Mechanics Research Communications (2022); Tuttipongsawat et al., Wave Motion (2020); Leungvichcharoen et al., NUSTARC (2025).",
+        link: "https://www.eng.nu.ac.th"
+      }
+    },
+    {
+      id: "res-1",
+      deptCode: "02",
       deptNameEn: "Department of Civil Engineering",
       majorEn: "Major: Environmental Engineering",
       deptNameTh: "ภาควิชาวิศวกรรมโยธา",
@@ -115,7 +217,7 @@ window.DEFAULT_EBOOK_DATA = {
         "Ryo Honda, Weerapong Rukapan, Hitomi Komura, Yuta Teraoka, Mana Noguchi, Eric M.V. Hoek. Title: Effects of membrane orientation on fouling characteristics of forward osmosis membrane in concentration of microalgae culture. Bioresource Technology"
       ],
       research: {
-        code: "01",
+        code: "02",
         title:
           "การหาค่าสัมประสิทธิ์การปล่อยก๊าซเรือนกระจกสำหรับระบบบำบัดน้ำเสียสำหรับหลุมฝังกลบขยะชุมชน",
         titleEn:
@@ -131,106 +233,6 @@ window.DEFAULT_EBOOK_DATA = {
         figureUrl: "img/weerapong-fig1.jpg",
         publication:
           "Weerapong Rukapan et al., Water Science and Technology (2012); Ryo Honda, Weerapong Rukapan et al., Bioresource Technology.",
-        link: "https://www.eng.nu.ac.th"
-      }
-    },
-    {
-      id: "res-2",
-      deptCode: "02",
-      deptNameEn: "Department of Mechanical Engineering",
-      majorEn: "Major: Mechanical Engineering",
-      deptNameTh: "ภาควิชาวิศวกรรมเครื่องกล",
-      majorTh: "สาขาวิชาวิศวกรรมเครื่องกล",
-      academicTitle: "ผศ.",
-      fullName: "ศิษฐ์ภัณฑ์ แคนลา",
-      fullNameEn: "Asst. Prof. Sitphan Kanla",
-      email: "sitphank@nu.ac.th",
-      portraitText: "Portrait\n3 : 4",
-      portraitUrl: "img/sitphan-portrait.jpg",
-      topicEn: "Sustainable Energy and Environmental Innovation",
-      topicTh: "เทคโนโลยีและนวัตกรรมด้านพลังงานและสิ่งแวดล้อมอย่างยั่งยืน",
-      biographyEn:
-        "Energy costs for buildings and factories stem from the consumption of electricity and thermal energy by system such as air conditioning, refrigeration, heating and motor. Consequently, effective management and the integration of energy conservation technologies have become highly essential today.",
-      biography:
-        "ต้นทุนด้านพลังงานของอาคาร/โรงงานเกิดจากการใช้พลังงานไฟฟ้าและความร้อนของระบบปรับอากาศ ระบบทำความเย็น ระบบทำความร้อน ระบบต้นกำลัง ดังนั้นการบริหารจัดการและนำเทคโนโลยีมาช่วยในการอนุรักษ์พลังงานจึงมีความจำเป็นอย่างมากในปัจจุบัน",
-      interestsLabelEn: "Field of interest:",
-      interestsEn: [
-        "Air conditioning and refrigeration system.",
-        "Energy management and conservation.",
-        "Indoor air quality and cleanroom technology.",
-        "Thermal design system."
-      ],
-      interestsLabelTh: "หัวข้อวิจัยที่สนใจ:",
-      interestsTh: [
-        "การปรับอากาศและการทำความเย็น",
-        "การจัดการและอนุรักษ์พลังงาน",
-        "คุณภาพอากาศภายในอาคารและเทคโนโลยีห้องสะอาด",
-        "การออกแบบระบบทางความร้อน"
-      ],
-      interests: [
-        "Air Conditioning & Refrigeration",
-        "Energy Conservation",
-        "Indoor Air Quality & Cleanroom",
-        "Thermal Design System"
-      ],
-      inFutureLabelEn: "In the future:",
-      inFutureEn:
-        "Study and research to identify technologies and innovations for enhancing the energy efficiency of machinery and equipment in buildings and factories.",
-      afterGradLabelEn: "After Graduation",
-      afterGradEn:
-        "The expectation is that these developing technologies and innovations will enable entrepreneurs to achieve sustainable reductions in their energy costs.",
-      inFutureLabelTh: "การประยุกต์ใช้ในอนาคต:",
-      inFutureTh:
-        "ศึกษาและวิจัยเพื่อหาเทคโนโลยี/นวัตกรรมในการเพิ่มประสิทธิภาพการใช้พลังงานของเครื่องจักรและอุปกรณ์ต่างๆ ในอาคาร/โรงงาน",
-      afterGradLabelTh: "หลังจบการศึกษา:",
-      afterGradTh:
-        "คาดหวังว่าเทคโนโลยีและนวัตกรรมที่พัฒนาขึ้นจะช่วยให้ผู้ประกอบการสามารถลดต้นทุนด้านพลังงานอย่างยั่งยืน",
-      figures: [
-        {
-          url: "img/sitphan-fig1.jpg",
-          captionEn: "Presenting student project to HRH Princess Soamsawali",
-          captionTh: "ถวายรายงานโครงงานนิสิต พระเจ้าวรวงศ์เธอ พระองค์เจ้าโสมสวลีฯ"
-        },
-        {
-          url: "img/sitphan-fig2.jpg",
-          captionEn: "1st Place Winner — YORK Cool Engineering Contest",
-          captionTh: "รางวัลชนะเลิศอันดับ 1 โครงการ YORK Cool Engineering Contest"
-        },
-        {
-          url: "img/sitphan-fig3.jpg",
-          captionEn: "Outstanding Energy Conservation Invention Award (PTT)",
-          captionTh: "รางวัลสิ่งประดิษฐ์ด้านการอนุรักษ์พลังงานดีเด่น โครงการ ปตท. ปี 2550"
-        }
-      ],
-      pubsLabelEn: "Honors & Outstanding Achievements",
-      publicationsEn: [
-        "1st Place Winner in the 'YORK Cool Engineering Contest' by Johnson Controls — Engineering design competition, Faculty of Engineering, Naresuan University.",
-        "Outstanding Energy Conservation Invention Award (Heat Dissipation Enhancer for Air-Conditioner Condensing Units) — PTT Sustainable Energy Inventor Project (2007)."
-      ],
-      pubsLabelTh: "รางวัลและเกียรติประวัติผลงานนวัตกรรมเด่น",
-      publicationsTh: [
-        "รางวัลชนะเลิศอันดับหนึ่ง การประกวดแผนงานทางด้านวิศวกรรม โครงการ 'YORK Cool Engineering Contest' โดย จอห์นสัน คอนโทรล คณะวิศวกรรมศาสตร์ มหาวิทยาลัยนเรศวร",
-        "รางวัลสิ่งประดิษฐ์ด้านการอนุรักษ์พลังงานดีเด่น (อุปกรณ์ช่วยระบายความร้อนในชุดคอยล์ร้อนของเครื่องปรับอากาศ) โครงการ ปตท. ร่วมสานฝันนักประดิษฐ์ใช้พลังงานอย่างยั่งยืน ปี 2550"
-      ],
-      publications: [
-        "รางวัลชนะเลิศอันดับหนึ่ง การประกวดแผนงานทางด้านวิศวกรรม โครงการ YORK Cool Engineering Contest คณะวิศวกรรมศาสตร์ มหาวิทยาลัยนเรศวร",
-        "รางวัลสิ่งประดิษฐ์ด้านการอนุรักษ์พลังงานดีเด่น (อุปกรณ์ช่วยระบายความร้อนในชุดคอยล์ร้อนของเครื่องปรับอากาศ) โครงการ ปตท. ร่วมสานฝันนักประดิษฐ์ใช้พลังงานอย่างยั่งยืน"
-      ],
-      research: {
-        code: "02",
-        title: "เทคโนโลยีและนวัตกรรมด้านพลังงานและสิ่งแวดล้อมอย่างยั่งยืน",
-        titleEn: "Sustainable Energy and Environmental Innovation",
-        abstract:
-          "ต้นทุนด้านพลังงานของอาคารและโรงงานเกิดจากการใช้พลังงานไฟฟ้าและความร้อนของระบบปรับอากาศ ระบบทำความเย็น ระบบทำความร้อน และระบบต้นกำลัง งานวิจัยนี้จึงมุ่งเน้นการบริหารจัดการและบูรณาการเทคโนโลยีอนุรักษ์พลังงาน",
-        methodology:
-          "ศึกษาและวิจัยด้านระบบปรับอากาศและทำความเย็น การจัดการและอนุรักษ์พลังงาน คุณภาพอากาศภายในอาคารและเทคโนโลยีห้องสะอาด ตลอดจนการออกแบบระบบทางความร้อน",
-        findings:
-          "ได้เทคโนโลยีและนวัตกรรมในการเพิ่มประสิทธิภาพการใช้พลังงานของเครื่องจักรและอุปกรณ์ต่างๆ ในอาคารและโรงงาน ช่วยให้ผู้ประกอบการลดต้นทุนด้านพลังงานได้อย่างยั่งยืน",
-        figureCaption:
-          "Fig. 2 — ผลงานนวัตกรรมและรางวัลชนะเลิศด้านการอนุรักษ์พลังงาน",
-        figureUrl: "img/sitphan-fig2.jpg",
-        publication:
-          "YORK Cool Engineering Contest (1st Prize) & PTT Sustainable Energy Invention Award, Faculty of Engineering, Naresuan University.",
         link: "https://www.eng.nu.ac.th"
       }
     },
@@ -333,104 +335,102 @@ window.DEFAULT_EBOOK_DATA = {
       }
     },
     {
-      id: "res-4",
+      id: "res-2",
       deptCode: "04",
-      deptNameEn: "Department of Civil Engineering",
-      majorEn: "Major: Structural Engineering",
-      deptNameTh: "ภาควิชาวิศวกรรมโยธา",
-      majorTh: "สาขาวิชาวิศวกรรมโครงสร้าง",
-      academicTitle: "ผศ. ดร.",
-      fullName: "สสิกรณณ์ เหลืองวิชชเจริญ",
-      fullNameEn: "Asst. Prof. Dr. Sasikorn Leungvichcharoen",
-      email: "",
+      deptNameEn: "Department of Mechanical Engineering",
+      majorEn: "Major: Mechanical Engineering",
+      deptNameTh: "ภาควิชาวิศวกรรมเครื่องกล",
+      majorTh: "สาขาวิชาวิศวกรรมเครื่องกล",
+      academicTitle: "ผศ.",
+      fullName: "ศิษฐ์ภัณฑ์ แคนลา",
+      fullNameEn: "Asst. Prof. Sitphan Kanla",
+      email: "sitphank@nu.ac.th",
       portraitText: "Portrait\n3 : 4",
-      portraitUrl: "img/sasikorn-portrait.jpg",
-      topicEn:
-        "Structural Analysis, Wave Propagation, and Practical Engineering Applications",
-      topicTh:
-        "การวิเคราะห์โครงสร้าง การแพร่กระจายคลื่น และการประยุกต์ใช้ทางวิศวกรรม",
+      portraitUrl: "img/sitphan-portrait.jpg",
+      topicEn: "Sustainable Energy and Environmental Innovation",
+      topicTh: "เทคโนโลยีและนวัตกรรมด้านพลังงานและสิ่งแวดล้อมอย่างยั่งยืน",
       biographyEn:
-        "My research has focused on structural mechanics and elastic wave propagation, particularly the effects of interfaces, material properties, and initial stresses on structural response. I am also interested in applying structural analysis and numerical methods to practical civil engineering problems, including prefabricated steel systems and engineering information management.",
+        "Energy costs for buildings and factories stem from the consumption of electricity and thermal energy by system such as air conditioning, refrigeration, heating and motor. Consequently, effective management and the integration of energy conservation technologies have become highly essential today.",
       biography:
-        "งานวิจัยที่สนใจเกี่ยวข้องกับกลศาสตร์โครงสร้างและการแพร่กระจายคลื่นในวัสดุยืดหยุ่น โดยเฉพาะผลของรอยต่อ คุณสมบัติวัสดุ และความเค้นเริ่มต้นต่อการตอบสนองของโครงสร้าง นอกจากนี้ ยังสนใจประยุกต์ใช้การวิเคราะห์โครงสร้างและวิธีเชิงตัวเลขในงานวิศวกรรมโยธา เช่น ระบบโครงสร้างเหล็กสำเร็จรูปและการจัดการข้อมูลทางวิศวกรรม",
-      interestsLabelEn: "Research Interests:",
+        "ต้นทุนด้านพลังงานของอาคาร/โรงงานเกิดจากการใช้พลังงานไฟฟ้าและความร้อนของระบบปรับอากาศ ระบบทำความเย็น ระบบทำความร้อน ระบบต้นกำลัง ดังนั้นการบริหารจัดการและนำเทคโนโลยีมาช่วยในการอนุรักษ์พลังงานจึงมีความจำเป็นอย่างมากในปัจจุบัน",
+      interestsLabelEn: "Field of interest:",
       interestsEn: [
-        "Structural mechanics and analysis of elastic waves",
-        "Finite element analysis and numerical methods",
-        "Steel structures, prefabrication and modular systems"
+        "Air conditioning and refrigeration system.",
+        "Energy management and conservation.",
+        "Indoor air quality and cleanroom technology.",
+        "Thermal design system."
       ],
       interestsLabelTh: "หัวข้อวิจัยที่สนใจ:",
       interestsTh: [
-        "กลศาสตร์โครงสร้างและการวิเคราะห์คลื่นในวัสดุยืดหยุ่น",
-        "การวิเคราะห์ไฟไนต์เอลิเมนต์และวิธีเชิงตัวเลข",
-        "โครงสร้างเหล็ก ระบบสำเร็จรูป และโครงสร้างแบบโมดูลาร์"
+        "การปรับอากาศและการทำความเย็น",
+        "การจัดการและอนุรักษ์พลังงาน",
+        "คุณภาพอากาศภายในอาคารและเทคโนโลยีห้องสะอาด",
+        "การออกแบบระบบทางความร้อน"
       ],
       interests: [
-        "Structural Mechanics & Elastic Waves",
-        "Finite Element & Numerical Methods",
-        "Prefabricated & Modular Steel Systems"
+        "Air Conditioning & Refrigeration",
+        "Energy Conservation",
+        "Indoor Air Quality & Cleanroom",
+        "Thermal Design System"
       ],
-      inFutureLabelEn: "Future Research Directions",
+      inFutureLabelEn: "In the future:",
       inFutureEn:
-        "I plan to continue studying structural behavior using analytical and numerical approaches, with an emphasis on problems that can be linked to engineering practice and the development of simple computational tools.",
-      afterGradLabelEn: "Research and Applications",
+        "Study and research to identify technologies and innovations for enhancing the energy efficiency of machinery and equipment in buildings and factories.",
+      afterGradLabelEn: "After Graduation",
       afterGradEn:
-        "My work includes studies of elastic-wave behavior and structural response, together with collaborative work on knock-down steel frame systems and digital preservation of engineering drawings for building management.",
-      inFutureLabelTh: "แนวทางการวิจัยในอนาคต",
+        "The expectation is that these developing technologies and innovations will enable entrepreneurs to achieve sustainable reductions in their energy costs.",
+      inFutureLabelTh: "การประยุกต์ใช้ในอนาคต:",
       inFutureTh:
-        "มุ่งศึกษาพฤติกรรมของโครงสร้างด้วยวิธีวิเคราะห์และวิธีเชิงตัวเลขอย่างต่อเนื่อง โดยเน้นปัญหาที่เชื่อมโยงกับงานวิศวกรรมจริง และการพัฒนาเครื่องมือคำนวณที่ใช้งานได้ไม่ซับซ้อน",
-      afterGradLabelTh: "งานวิจัยและการประยุกต์ใช้",
+        "ศึกษาและวิจัยเพื่อหาเทคโนโลยี/นวัตกรรมในการเพิ่มประสิทธิภาพการใช้พลังงานของเครื่องจักรและอุปกรณ์ต่างๆ ในอาคาร/โรงงาน",
+      afterGradLabelTh: "หลังจบการศึกษา:",
       afterGradTh:
-        "ผลงานที่ผ่านมาเกี่ยวข้องกับพฤติกรรมการแพร่กระจายคลื่นและการตอบสนองของโครงสร้าง รวมทั้งความร่วมมือด้านระบบโครงสร้างเหล็กแบบถอดประกอบ และการอนุรักษ์แบบก่อสร้างเดิมในรูปแบบดิจิทัลเพื่อการบริหารจัดการอาคาร",
+        "คาดหวังว่าเทคโนโลยีและนวัตกรรมที่พัฒนาขึ้นจะช่วยให้ผู้ประกอบการสามารถลดต้นทุนด้านพลังงานอย่างยั่งยืน",
       figures: [
         {
-          url: "img/sasikorn-fig1.jpg",
-          captionEn:
-            "Elastic wave cloaking simulation (Wijeyewickrema & Leungvichcharoen, 2022, Fig. 3)",
-          captionTh:
-            "ผลการจำลองคลื่นในระบบพรางคลื่น (Wijeyewickrema และ Leungvichcharoen, 2022, รูปที่ 3)"
+          url: "img/sitphan-fig1.jpg",
+          captionEn: "Presenting student project to HRH Princess Soamsawali",
+          captionTh: "ถวายรายงานโครงงานนิสิต พระเจ้าวรวงศ์เธอ พระองค์เจ้าโสมสวลีฯ"
         },
         {
-          url: "img/sasikorn-fig2.jpg",
-          captionEn:
-            "Knock-down steel frame prototype (NUSTARC 2025 presentation)",
-          captionTh: "โครงสร้างเหล็กแบบถอดประกอบ (สไลด์นำเสนอ NUSTARC 2025)"
+          url: "img/sitphan-fig2.jpg",
+          captionEn: "1st Place Winner — YORK Cool Engineering Contest",
+          captionTh: "รางวัลชนะเลิศอันดับ 1 โครงการ YORK Cool Engineering Contest"
+        },
+        {
+          url: "img/sitphan-fig3.jpg",
+          captionEn: "Outstanding Energy Conservation Invention Award (PTT)",
+          captionTh: "รางวัลสิ่งประดิษฐ์ด้านการอนุรักษ์พลังงานดีเด่น โครงการ ปตท. ปี 2550"
         }
       ],
-      pubsLabelEn: "Selected Publications and Conference Presentations",
+      pubsLabelEn: "Honors & Outstanding Achievements",
       publicationsEn: [
-        "Wijeyewickrema, A. C. and Leungvichcharoen, S. (2022). Effect of Imperfect Contact on the Cloaking of a Circular Elastic Cylinder from Antiplane Elastic Waves. Mechanics Research Communications, 124, 103964.",
-        "Tuttipongsawat, P., Wijeyewickrema, A. C. and Leungvichcharoen, S. (2020). Cloaking of a Circular Cylindrical Elastic Inclusion from Antiplane Elastic Waves and Resonance Effects. Wave Motion, 94, 102491.",
-        "Leungvichcharoen, S., Subsomboon, K., Kaewpoonsuk, P., Wijeyewickrema, A. C. and Moraray, P. (2025). Sustainable Knock-Down Housing Steel Structural Frame System: Reducing Transport Energy and Material Waste through Precision Prefabrication. NUSTARC 2025 (Abstract only)."
+        "1st Place Winner in the 'YORK Cool Engineering Contest' by Johnson Controls — Engineering design competition, Faculty of Engineering, Naresuan University.",
+        "Outstanding Energy Conservation Invention Award (Heat Dissipation Enhancer for Air-Conditioner Condensing Units) — PTT Sustainable Energy Inventor Project (2007)."
       ],
-      pubsLabelTh: "ผลงานตีพิมพ์และนำเสนอที่คัดเลือก",
+      pubsLabelTh: "รางวัลและเกียรติประวัติผลงานนวัตกรรมเด่น",
       publicationsTh: [
-        "Wijeyewickrema, A. C. and Leungvichcharoen, S. (2022). Effect of Imperfect Contact on the Cloaking of a Circular Elastic Cylinder from Antiplane Elastic Waves. Mechanics Research Communications, 124, 103964.",
-        "Tuttipongsawat, P., Wijeyewickrema, A. C. and Leungvichcharoen, S. (2020). Cloaking of a Circular Cylindrical Elastic Inclusion from Antiplane Elastic Waves and Resonance Effects. Wave Motion, 94, 102491.",
-        "Leungvichcharoen, S., Subsomboon, K., Kaewpoonsuk, P., Wijeyewickrema, A. C. and Moraray, P. (2025). Sustainable Knock-Down Housing Steel Structural Frame System: Reducing Transport Energy and Material Waste through Precision Prefabrication. NUSTARC 2025 (Abstract only)."
+        "รางวัลชนะเลิศอันดับหนึ่ง การประกวดแผนงานทางด้านวิศวกรรม โครงการ 'YORK Cool Engineering Contest' โดย จอห์นสัน คอนโทรล คณะวิศวกรรมศาสตร์ มหาวิทยาลัยนเรศวร",
+        "รางวัลสิ่งประดิษฐ์ด้านการอนุรักษ์พลังงานดีเด่น (อุปกรณ์ช่วยระบายความร้อนในชุดคอยล์ร้อนของเครื่องปรับอากาศ) โครงการ ปตท. ร่วมสานฝันนักประดิษฐ์ใช้พลังงานอย่างยั่งยืน ปี 2550"
       ],
       publications: [
-        "Wijeyewickrema, A. C. and Leungvichcharoen, S. (2022). Effect of Imperfect Contact on the Cloaking of a Circular Elastic Cylinder from Antiplane Elastic Waves. Mechanics Research Communications, 124, 103964.",
-        "Tuttipongsawat, P., Wijeyewickrema, A. C. and Leungvichcharoen, S. (2020). Cloaking of a Circular Cylindrical Elastic Inclusion from Antiplane Elastic Waves and Resonance Effects. Wave Motion, 94, 102491.",
-        "Leungvichcharoen, S., Subsomboon, K., Kaewpoonsuk, P., Wijeyewickrema, A. C. and Moraray, P. (2025). Sustainable Knock-Down Housing Steel Structural Frame System: Reducing Transport Energy and Material Waste through Precision Prefabrication. NUSTARC 2025 (Abstract only)."
+        "รางวัลชนะเลิศอันดับหนึ่ง การประกวดแผนงานทางด้านวิศวกรรม โครงการ YORK Cool Engineering Contest คณะวิศวกรรมศาสตร์ มหาวิทยาลัยนเรศวร",
+        "รางวัลสิ่งประดิษฐ์ด้านการอนุรักษ์พลังงานดีเด่น (อุปกรณ์ช่วยระบายความร้อนในชุดคอยล์ร้อนของเครื่องปรับอากาศ) โครงการ ปตท. ร่วมสานฝันนักประดิษฐ์ใช้พลังงานอย่างยั่งยืน"
       ],
       research: {
         code: "04",
-        title:
-          "การวิเคราะห์โครงสร้าง การแพร่กระจายคลื่น และการประยุกต์ใช้ทางวิศวกรรม",
-        titleEn:
-          "Structural Analysis, Wave Propagation, and Practical Engineering Applications",
+        title: "เทคโนโลยีและนวัตกรรมด้านพลังงานและสิ่งแวดล้อมอย่างยั่งยืน",
+        titleEn: "Sustainable Energy and Environmental Innovation",
         abstract:
-          "กลศาสตร์โครงสร้างและการแพร่กระจายคลื่นในวัสดุยืดหยุ่น การวิเคราะห์ไฟไนต์เอลิเมนต์และวิธีเชิงตัวเลข รวมถึงระบบโครงสร้างเหล็กสำเร็จรูปและการจัดการข้อมูลทางวิศวกรรม",
+          "ต้นทุนด้านพลังงานของอาคารและโรงงานเกิดจากการใช้พลังงานไฟฟ้าและความร้อนของระบบปรับอากาศ ระบบทำความเย็น ระบบทำความร้อน และระบบต้นกำลัง งานวิจัยนี้จึงมุ่งเน้นการบริหารจัดการและบูรณาการเทคโนโลยีอนุรักษ์พลังงาน",
         methodology:
-          "ใช้วิธีวิเคราะห์และวิธีเชิงตัวเลขศึกษาผลของรอยต่อ คุณสมบัติวัสดุ และความเค้นเริ่มต้นต่อการตอบสนองของโครงสร้างและระบบพรางคลื่น",
+          "ศึกษาและวิจัยด้านระบบปรับอากาศและทำความเย็น การจัดการและอนุรักษ์พลังงาน คุณภาพอากาศภายในอาคารและเทคโนโลยีห้องสะอาด ตลอดจนการออกแบบระบบทางความร้อน",
         findings:
-          "ได้แบบจำลองการแพร่กระจายคลื่นยืดหยุ่นและการพัฒนาระบบโครงสร้างเหล็กแบบถอดประกอบรวมถึงการอนุรักษ์แบบก่อสร้างดิจิทัล",
+          "ได้เทคโนโลยีและนวัตกรรมในการเพิ่มประสิทธิภาพการใช้พลังงานของเครื่องจักรและอุปกรณ์ต่างๆ ในอาคารและโรงงาน ช่วยให้ผู้ประกอบการลดต้นทุนด้านพลังงานได้อย่างยั่งยืน",
         figureCaption:
-          "ผลการจำลองคลื่นในระบบพรางคลื่น และโครงสร้างเหล็กแบบถอดประกอบ",
-        figureUrl: "img/sasikorn-fig1.jpg",
+          "Fig. 2 — ผลงานนวัตกรรมและรางวัลชนะเลิศด้านการอนุรักษ์พลังงาน",
+        figureUrl: "img/sitphan-fig2.jpg",
         publication:
-          "Wijeyewickrema & Leungvichcharoen, Mechanics Research Communications (2022); Tuttipongsawat et al., Wave Motion (2020); Leungvichcharoen et al., NUSTARC (2025).",
+          "YORK Cool Engineering Contest (1st Prize) & PTT Sustainable Energy Invention Award, Faculty of Engineering, Naresuan University.",
         link: "https://www.eng.nu.ac.th"
       }
     }
