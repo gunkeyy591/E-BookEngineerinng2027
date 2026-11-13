@@ -335,9 +335,12 @@
         "<br>" +
         esc(m.coverTitleLine3) +
         '</h1><div class="bar"></div>' +
-        '<p style="color:#c9d7ee;font-size:13px">' +
-        esc(m.coverSubtitle) +
-        "</p></div>" +
+        (m.coverSubtitle
+          ? '<p style="color:#c9d7ee;font-size:13px">' +
+            esc(m.coverSubtitle) +
+            "</p>"
+          : "") +
+        "</div>" +
         '<svg class="drawing" viewBox="0 0 260 160" fill="none" role="img" aria-label="Technical drawing of two meshing gears">' +
         '<defs><pattern id="hatchc" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V5" stroke="#c9d7ee" stroke-width=".6" opacity=".7"/></pattern></defs>' +
         '<g stroke="#9fb6dc" stroke-width=".5" stroke-dasharray="8 2 1.5 2" opacity=".8"><path d="M16 78H182M75 22V134M140 40V116"/></g>' +

@@ -17,7 +17,7 @@ window.DEFAULT_EBOOK_DATA = {
     coverTitleLine1: "Faculty of",
     coverTitleLine2: "Engineering",
     coverTitleLine3: "Researcher Profiles",
-    coverSubtitle: "ทำเนียบผลงานวิจัยและนวัตกรรมคณาจารย์ คณะวิศวกรรมศาสตร์",
+    coverSubtitle: "",
     insideCoverDesc:
       "หนังสืออิเล็กทรอนิกส์ (Research E-Book) เล่มนี้รวบรวมประวัติ ความเชี่ยวชาญ และผลงานวิจัยที่โดดเด่นของคณาจารย์ประจำคณะวิศวกรรมศาสตร์ เพื่อเผยแพร่องค์ความรู้และเชื่อมโยงความร่วมมือกับภาคอุตสาหกรรม",
     facultyBuildingUrl: "img/faculty-building.jpg",
