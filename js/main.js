@@ -4,14 +4,23 @@
   var ebookData = window.DEFAULT_EBOOK_DATA;
   var pf = null;
   var secs = [];
+  var currentPageIdx = 0;
+  var totalPageCount = 0;
+  var isScrollMode = false;
+  var userViewMode = null; // null = auto (scroll on phone/iPad, flipbook on desktop)
 
+  var headerEl = document.querySelector("header");
   var bookWrap = document.querySelector("main");
   var pageInput = document.getElementById("pageInput");
   var totalEl = document.getElementById("total");
   var gotoForm = document.getElementById("goto");
   var jump = document.getElementById("jump");
+  var searchBox = document.getElementById("searchBox");
   var searchInput = document.getElementById("searchInput");
   var searchResults = document.getElementById("searchResults");
+  var btnSearchToggle = document.getElementById("btnSearchToggle");
+  var btnViewMode = document.getElementById("btnViewMode");
+  var scrollFabGroup = document.getElementById("scrollFabGroup");
   var resDetailModal = document.getElementById("resDetailModal");
   var resModalTitle = document.getElementById("resModalTitle");
   var resModalBody = document.getElementById("resModalBody");
@@ -726,11 +735,39 @@
     return html.join("");
   }
 
+  function shouldUseScrollMode() {
+    if (userViewMode === "scroll") return true;
+    if (userViewMode === "flip") return false;
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    var coarse = false;
+    try {
+      coarse = !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
+    } catch (err) {}
+    return w < 1200 || h <= 540 || (coarse && w <= 1366);
+  }
+
+  function updateViewToggleUI() {
+    if (btnViewMode) {
+      btnViewMode.textContent = isScrollMode ? "Book" : "Scroll";
+      btnViewMode.setAttribute(
+        "title",
+        isScrollMode
+          ? "สลับเป็นโหมดพลิกหน้าหนังสือ (FlipBook)"
+          : "สลับเป็นโหมดเลื่อนอ่าน (Scroll View)"
+      );
+      btnViewMode.setAttribute("aria-pressed", String(isScrollMode));
+    }
+    if (scrollFabGroup) {
+      scrollFabGroup.classList.toggle("visible", isScrollMode);
+    }
+  }
+
   function getOptimalBookMetrics() {
     var rect = bookWrap.getBoundingClientRect();
     var availW = Math.max(300, rect.width - 20);
     var availH = Math.max(360, rect.height - 14);
-    var isSingle = window.innerWidth < 760;
+    var isSingle = window.innerWidth < 1024;
     var baseW = 512;
     var baseH = 630;
     var aspect = baseW / baseH; // ~0.8127
@@ -755,27 +792,115 @@
     };
   }
 
-  function initFlipBook(startPageIdx) {
-    startPageIdx = startPageIdx || 0;
+  function getPageCount() {
+    if (!isScrollMode && pf) return pf.getPageCount();
+    return totalPageCount || document.querySelectorAll("#book > .page").length;
+  }
 
-    if (typeof St === "undefined") {
-      var oldBook = document.getElementById("book");
-      if (oldBook) oldBook.style.display = "none";
-      document.getElementById("fb").style.display = "block";
-      return;
+  function getCurrentPage() {
+    if (!isScrollMode && pf) return pf.getCurrentPageIndex();
+    return currentPageIdx;
+  }
+
+  function syncControlsForPage(idx) {
+    var n = getPageCount();
+    if (n <= 0) return;
+    idx = Math.max(0, Math.min(idx, n - 1));
+    currentPageIdx = idx;
+
+    if (document.activeElement !== pageInput) pageInput.value = idx + 1;
+    totalEl.textContent = n;
+    pageInput.max = n;
+
+    var v = 0;
+    secs.forEach(function (s) {
+      if (idx >= s[1]) v = s[1];
+    });
+    jump.value = v;
+
+    var bookEl = document.getElementById("book");
+    if (bookEl && !isScrollMode) {
+      var isSingle = window.innerWidth < 1024;
+      bookEl.classList.toggle("cover-front", !isSingle && idx === 0);
+      bookEl.classList.toggle("cover-back", !isSingle && idx === n - 1);
+    } else if (bookEl) {
+      bookEl.classList.remove("cover-front", "cover-back");
     }
+  }
+
+  function scrollToPageIdx(idx, instant) {
+    var bookEl = document.getElementById("book");
+    if (!bookEl) return;
+    var pages = bookEl.querySelectorAll(":scope > .page");
+    var target = pages[idx];
+    if (!target) return;
+    var headerH = headerEl ? headerEl.getBoundingClientRect().height : 0;
+    var top = idx === 0 ? 0 : Math.max(0, target.getBoundingClientRect().top + window.scrollY - headerH - 12);
+    window.scrollTo({
+      top: top,
+      behavior: instant ? "auto" : "smooth"
+    });
+  }
+
+  function goToPage(idx, instant) {
+    var n = getPageCount();
+    if (n <= 0) return;
+    idx = Math.max(0, Math.min(+idx || 0, n - 1));
+    if (isScrollMode) {
+      syncControlsForPage(idx);
+      scrollToPageIdx(idx, instant);
+    } else if (pf) {
+      pf.flip(idx);
+    }
+  }
+
+  function detectVisibleScrollPage() {
+    if (!isScrollMode) return;
+    var bookEl = document.getElementById("book");
+    if (!bookEl) return;
+    var pages = bookEl.querySelectorAll(":scope > .page");
+    if (!pages.length) return;
+
+    var anchorY = (headerEl ? headerEl.getBoundingClientRect().height : 0) + 70;
+    var active = 0;
+
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 24) {
+      active = pages.length - 1;
+    } else {
+      for (var i = 0; i < pages.length; i++) {
+        if (pages[i].getBoundingClientRect().top <= anchorY) {
+          active = i;
+        } else {
+          break;
+        }
+      }
+    }
+
+    if (active !== currentPageIdx) {
+      syncControlsForPage(active);
+    }
+  }
+
+  function renderBook(startPageIdx) {
+    startPageIdx = typeof startPageIdx === "number" && !isNaN(startPageIdx) ? startPageIdx : currentPageIdx;
+    isScrollMode = shouldUseScrollMode();
+
+    if (pf) {
+      try {
+        pf.destroy();
+      } catch (err) {}
+      pf = null;
+    }
+
+    document.documentElement.classList.toggle("scroll-mode", isScrollMode);
+    document.body.classList.toggle("scroll-mode", isScrollMode);
+    updateViewToggleUI();
 
     var existingBook = document.getElementById("book");
     if (existingBook) existingBook.remove();
 
-    var metrics = getOptimalBookMetrics();
-
     var newBook = document.createElement("div");
     newBook.id = "book";
-    newBook.style.width = metrics.bookW + "px";
-    newBook.style.height = metrics.bookH + "px";
-    newBook.style.setProperty("--page-scale", +(metrics.pageH / 630).toFixed(4));
-    newBook.style.setProperty("--res-page-scale", +(metrics.pageH / 915).toFixed(4));
     newBook.innerHTML = buildBookHTML();
     bookWrap.insertBefore(newBook, document.getElementById("fb"));
 
@@ -788,7 +913,59 @@
       jump.appendChild(o);
     });
 
-    var pageNodes = newBook.querySelectorAll(".page");
+    var pageNodes = newBook.querySelectorAll(":scope > .page");
+    totalPageCount = pageNodes.length;
+    startPageIdx = Math.max(0, Math.min(startPageIdx, Math.max(0, totalPageCount - 1)));
+
+    // Bind TOC links inside book
+    newBook.querySelectorAll(".toc li[data-go]").forEach(function (li) {
+      li.addEventListener("click", function (e) {
+        e.stopPropagation();
+        goToPage(+li.dataset.go);
+      });
+    });
+
+    // Bind detail modal button inside pages
+    newBook.querySelectorAll("[data-open-detail]").forEach(function (btn) {
+      btn.addEventListener("mousedown", function (e) {
+        e.stopPropagation();
+      });
+      btn.addEventListener("touchstart", function (e) {
+        e.stopPropagation();
+      });
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        openDetailModal(btn.getAttribute("data-open-detail"));
+      });
+    });
+
+    if (isScrollMode) {
+      newBook.classList.add("scroll-mode");
+      document.getElementById("fb").style.display = "none";
+      syncControlsForPage(startPageIdx);
+      if (startPageIdx > 0) {
+        requestAnimationFrame(function () {
+          scrollToPageIdx(startPageIdx, true);
+        });
+      } else {
+        window.scrollTo(0, 0);
+      }
+      return;
+    }
+
+    if (typeof St === "undefined") {
+      newBook.style.display = "none";
+      document.getElementById("fb").style.display = "block";
+      return;
+    }
+
+    document.getElementById("fb").style.display = "none";
+    var metrics = getOptimalBookMetrics();
+    newBook.style.width = metrics.bookW + "px";
+    newBook.style.height = metrics.bookH + "px";
+    newBook.style.setProperty("--page-scale", +(metrics.pageH / 630).toFixed(4));
+    newBook.style.setProperty("--res-page-scale", +(metrics.pageH / 915).toFixed(4));
+
     pf = new St.PageFlip(newBook, {
       width: metrics.pageW,
       height: metrics.pageH,
@@ -808,64 +985,24 @@
     });
 
     pf.loadFromHTML(pageNodes);
-
     pf.on("flip", upd);
-
-    // Bind TOC links inside book
-    newBook.querySelectorAll(".toc li[data-go]").forEach(function (li) {
-      li.addEventListener("click", function (e) {
-        e.stopPropagation();
-        pf.flip(+li.dataset.go);
-      });
-    });
-
-    // Bind detail modal button inside pages
-    newBook.querySelectorAll("[data-open-detail]").forEach(function (btn) {
-      btn.addEventListener("mousedown", function (e) {
-        e.stopPropagation();
-      });
-      btn.addEventListener("touchstart", function (e) {
-        e.stopPropagation();
-      });
-      btn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        openDetailModal(btn.getAttribute("data-open-detail"));
-      });
-    });
-
     upd();
   }
 
   function upd() {
     if (!pf) return;
-    var i = pf.getCurrentPageIndex(),
-      n = pf.getPageCount();
-    if (document.activeElement !== pageInput) pageInput.value = i + 1;
-    totalEl.textContent = n;
-    pageInput.max = n;
-    var v = 0;
-    secs.forEach(function (s) {
-      if (i >= s[1]) v = s[1];
-    });
-    jump.value = v;
-
-    var bookEl = document.getElementById("book");
-    if (bookEl) {
-      var isSingle = window.innerWidth < 760;
-      bookEl.classList.toggle("cover-front", !isSingle && i === 0);
-      bookEl.classList.toggle("cover-back", !isSingle && i === n - 1);
-    }
+    syncControlsForPage(pf.getCurrentPageIndex());
   }
 
   function goToTyped() {
-    var n = pf.getPageCount(),
+    var n = getPageCount(),
       v = parseInt(pageInput.value.replace(/\D/g, ""), 10);
     if (isNaN(v)) {
-      return pf.getCurrentPageIndex() + 1;
+      return getCurrentPage() + 1;
     }
     v = Math.min(Math.max(v, 1), n);
     pageInput.value = v;
-    if (v - 1 !== pf.getCurrentPageIndex()) pf.flip(v - 1);
+    if (v - 1 !== getCurrentPage()) goToPage(v - 1);
     return v;
   }
 
@@ -995,16 +1132,24 @@
 
   // Event bindings
   document.getElementById("prev").onclick = function () {
-    if (pf) pf.flipPrev();
+    if (isScrollMode) {
+      goToPage(getCurrentPage() - 1);
+    } else if (pf) {
+      pf.flipPrev();
+    }
   };
   document.getElementById("next").onclick = function () {
-    if (pf) pf.flipNext();
+    if (isScrollMode) {
+      goToPage(getCurrentPage() + 1);
+    } else if (pf) {
+      pf.flipNext();
+    }
   };
   document.getElementById("brandHome").onclick = function () {
-    if (pf) pf.flip(0);
+    goToPage(0);
   };
   jump.onchange = function () {
-    if (pf) pf.flip(+jump.value);
+    goToPage(+jump.value);
   };
   gotoForm.onsubmit = function (e) {
     e.preventDefault();
@@ -1019,8 +1164,66 @@
     pageInput.value = pageInput.value.replace(/\D/g, "");
   };
   pageInput.onblur = function () {
-    if (pf) pageInput.value = pf.getCurrentPageIndex() + 1;
+    pageInput.value = getCurrentPage() + 1;
   };
+
+  if (btnSearchToggle && searchBox) {
+    btnSearchToggle.onclick = function () {
+      var willOpen = !searchBox.classList.contains("open");
+      searchBox.classList.toggle("open", willOpen);
+      btnSearchToggle.setAttribute("aria-expanded", String(willOpen));
+      if (willOpen && searchInput) {
+        searchInput.focus();
+      } else if (searchResults) {
+        searchResults.classList.remove("open");
+      }
+    };
+  }
+
+  if (btnViewMode) {
+    btnViewMode.onclick = function () {
+      var cur = getCurrentPage();
+      userViewMode = isScrollMode ? "flip" : "scroll";
+      renderBook(cur);
+      if (!isScrollMode) {
+        var m = getOptimalBookMetrics();
+        lastBookW = m.bookW;
+        lastBookH = m.bookH;
+      }
+    };
+  }
+
+  var fabContents = document.getElementById("fabContents");
+  if (fabContents) {
+    fabContents.onclick = function () {
+      var contentsOpt = secs.find(function (s) {
+        return /contents|สารบัญ/i.test(s[0]);
+      });
+      goToPage(contentsOpt ? contentsOpt[1] : 3);
+    };
+  }
+
+  var fabTop = document.getElementById("fabTop");
+  if (fabTop) {
+    fabTop.onclick = function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      syncControlsForPage(0);
+    };
+  }
+
+  var scrollRafPending = false;
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!isScrollMode || scrollRafPending) return;
+      scrollRafPending = true;
+      requestAnimationFrame(function () {
+        scrollRafPending = false;
+        detectVisibleScrollPage();
+      });
+    },
+    { passive: true }
+  );
 
   // Theme Toggle (Light Blueprint vs Dark Blueprint)
   var savedTheme = localStorage.getItem(THEME_KEY);
@@ -1102,13 +1305,23 @@
     if (!item) return;
     var targetIdx = +item.getAttribute("data-search-go");
     searchResults.classList.remove("open");
+    if (searchBox) searchBox.classList.remove("open");
+    if (btnSearchToggle) btnSearchToggle.setAttribute("aria-expanded", "false");
     searchInput.value = "";
-    if (pf) pf.flip(targetIdx);
+    goToPage(targetIdx);
   });
 
   document.addEventListener("click", function (e) {
     if (!e.target.closest(".search-box")) {
       searchResults.classList.remove("open");
+      if (
+        searchBox &&
+        searchBox.classList.contains("open") &&
+        !e.target.closest("#btnSearchToggle")
+      ) {
+        searchBox.classList.remove("open");
+        if (btnSearchToggle) btnSearchToggle.setAttribute("aria-expanded", "false");
+      }
     }
   });
 
@@ -1133,23 +1346,49 @@
       }
       return;
     }
-    if (e.key === "ArrowRight" && pf) pf.flipNext();
-    if (e.key === "ArrowLeft" && pf) pf.flipPrev();
+    if (e.key === "ArrowRight") {
+      if (isScrollMode) {
+        goToPage(getCurrentPage() + 1);
+      } else if (pf) {
+        pf.flipNext();
+      }
+    }
+    if (e.key === "ArrowLeft") {
+      if (isScrollMode) {
+        goToPage(getCurrentPage() - 1);
+      } else if (pf) {
+        pf.flipPrev();
+      }
+    }
   });
 
-  // Responsive resize: re-fit book to viewport while keeping current page
+  // Responsive resize: switch mode cleanly across viewports or re-fit FlipBook
   var resizeTimer = null;
   var lastBookW = 0;
   var lastBookH = 0;
   window.addEventListener("resize", function () {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
+      var nextScroll = shouldUseScrollMode();
+      if (nextScroll !== isScrollMode) {
+        var cur = getCurrentPage();
+        renderBook(cur);
+        if (!isScrollMode) {
+          var swappedM = getOptimalBookMetrics();
+          lastBookW = swappedM.bookW;
+          lastBookH = swappedM.bookH;
+        }
+        return;
+      }
+      if (isScrollMode) {
+        return;
+      }
       var m = getOptimalBookMetrics();
       if (Math.abs(m.bookW - lastBookW) > 6 || Math.abs(m.bookH - lastBookH) > 6) {
         lastBookW = m.bookW;
         lastBookH = m.bookH;
-        var curIdx = pf ? pf.getCurrentPageIndex() : 0;
-        initFlipBook(curIdx);
+        var curIdx = getCurrentPage();
+        renderBook(curIdx);
       }
     }, 180);
   });
@@ -1163,8 +1402,10 @@
       initialPage = pParam - 1;
     }
   } catch (err) {}
-  var initM = getOptimalBookMetrics();
-  lastBookW = initM.bookW;
-  lastBookH = initM.bookH;
-  initFlipBook(initialPage);
+  renderBook(initialPage);
+  if (!isScrollMode) {
+    var initM = getOptimalBookMetrics();
+    lastBookW = initM.bookW;
+    lastBookH = initM.bookH;
+  }
 })();
