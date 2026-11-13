@@ -4,6 +4,8 @@
   var ebookData = window.DEFAULT_EBOOK_DATA;
   var pf = null;
   var secs = [];
+  var activeFlipTarget = null;
+  var queuedFlipTarget = null;
 
   var bookWrap = document.querySelector("main");
   var bookStage = document.getElementById("bookStage") || bookWrap;
@@ -14,7 +16,6 @@
   var tapFlashPrev = document.getElementById("tapFlashPrev");
   var tapFlashNext = document.getElementById("tapFlashNext");
   var tapFlashTimer = null;
-  var lastTouchActionAt = 0;
   var pageInput = document.getElementById("pageInput");
   var totalEl = document.getElementById("total");
   var gotoForm = document.getElementById("goto");
@@ -912,14 +913,7 @@
       var targetEl = start.target && start.target.nodeType === 1 ? start.target : e.target;
       if (!targetEl || !targetEl.closest) return;
 
-      var tocLi = targetEl.closest("[data-go]");
-      if (tocLi) {
-        lastTouchActionAt = Date.now();
-        pf.flip(+tocLi.dataset.go);
-        return;
-      }
-
-      if (targetEl.closest("[data-open-detail], a, button, input, select, textarea, label")) {
+      if (targetEl.closest("[data-go], [data-open-detail], a, button, input, select, textarea, label")) {
         return;
       }
 
@@ -1060,27 +1054,47 @@
     });
 
     pf.loadFromHTML(pageNodes);
+    activeFlipTarget = null;
+    queuedFlipTarget = null;
 
     pf.on("flip", upd);
+    pf.on("changeState", function (ev) {
+      if (ev && ev.data === "read") {
+        activeFlipTarget = null;
+        if (queuedFlipTarget !== null) {
+          var nextTarget = queuedFlipTarget;
+          queuedFlipTarget = null;
+          jumpToPage(nextTarget);
+        }
+      }
+    });
     bindBookTouchTap(newBook);
+
+    function stopFlipInterference(el) {
+      el.addEventListener("mousedown", function (e) {
+        e.stopPropagation();
+      });
+      el.addEventListener(
+        "touchstart",
+        function (e) {
+          e.stopPropagation();
+        },
+        { passive: true }
+      );
+    }
 
     // Bind TOC & Overview jump links inside book
     newBook.querySelectorAll("[data-go]").forEach(function (li) {
+      stopFlipInterference(li);
       li.addEventListener("click", function (e) {
         e.stopPropagation();
-        if (Date.now() - lastTouchActionAt < 500) return;
-        pf.flip(+li.dataset.go);
+        jumpToPage(+li.dataset.go);
       });
     });
 
     // Bind detail modal button inside pages
     newBook.querySelectorAll("[data-open-detail]").forEach(function (btn) {
-      btn.addEventListener("mousedown", function (e) {
-        e.stopPropagation();
-      });
-      btn.addEventListener("touchstart", function (e) {
-        e.stopPropagation();
-      });
+      stopFlipInterference(btn);
       btn.addEventListener("click", function (e) {
         e.stopPropagation();
         openDetailModal(btn.getAttribute("data-open-detail"));
@@ -1115,6 +1129,23 @@
     }
   }
 
+  function jumpToPage(targetIdx) {
+    if (!pf || isNaN(targetIdx)) return;
+    var n = pf.getPageCount();
+    targetIdx = Math.min(Math.max(targetIdx, 0), n - 1);
+    if (pf.getState() !== "read") {
+      if (activeFlipTarget === targetIdx) return;
+      queuedFlipTarget = targetIdx;
+      return;
+    }
+    if (targetIdx === pf.getCurrentPageIndex()) return;
+    activeFlipTarget = targetIdx;
+    pf.flip(targetIdx);
+    if (pf.getState() === "read") {
+      activeFlipTarget = null;
+    }
+  }
+
   function goToTyped() {
     var n = pf.getPageCount(),
       v = parseInt(pageInput.value.replace(/\D/g, ""), 10);
@@ -1123,7 +1154,7 @@
     }
     v = Math.min(Math.max(v, 1), n);
     pageInput.value = v;
-    if (v - 1 !== pf.getCurrentPageIndex()) pf.flip(v - 1);
+    jumpToPage(v - 1);
     return v;
   }
 
@@ -1273,10 +1304,10 @@
     };
   }
   document.getElementById("brandHome").onclick = function () {
-    if (pf) pf.flip(0);
+    jumpToPage(0);
   };
   jump.onchange = function () {
-    if (pf) pf.flip(+jump.value);
+    jumpToPage(+jump.value);
   };
   gotoForm.onsubmit = function (e) {
     e.preventDefault();
@@ -1375,7 +1406,7 @@
     var targetIdx = +item.getAttribute("data-search-go");
     searchResults.classList.remove("open");
     searchInput.value = "";
-    if (pf) pf.flip(targetIdx);
+    jumpToPage(targetIdx);
   });
 
   document.addEventListener("click", function (e) {
