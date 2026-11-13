@@ -145,8 +145,8 @@
     }
   ];
 
-  // Cover(1), Inside(2), Foreword(3), Contents 1(4), Contents 2(5), Overview(6), Divider(7) -> Faculty spreads start at page 8
-  var RESEARCH_START_PAGE = 8;
+  // Cover(1), Inside(2), Foreword(3), Contents 1(4), Contents 2(5) -> Faculty spreads start at page 6
+  var RESEARCH_START_PAGE = 6;
 
   function resolveDisciplineKey(r) {
     var explicit = String(r.discipline || "").toLowerCase().trim();
@@ -229,7 +229,7 @@
     var m = ebookData.meta;
     var grouped = buildGroupedResearchers();
     var list = grouped.ordered;
-    // Total pages = 8 + 2 * N (Always EVEN so Front Cover & Back Cover work properly)
+    // Total pages = 6 + 2 * N (Always EVEN so Front Cover & Back Cover work properly)
     var totalPages = RESEARCH_START_PAGE + list.length * 2;
 
     document.getElementById("hdrFaculty").textContent = m.facultyTitle;
@@ -240,9 +240,7 @@
     secs = [
       ["Cover", 0],
       ["Foreword", 2],
-      ["Contents", 3],
-      ["Overview", 5],
-      ["Departments", 6]
+      ["Contents", 3]
     ];
     list.forEach(function (r, idx) {
       var pIdx = RESEARCH_START_PAGE - 1 + idx * 2; // 0-based index for left EN page
@@ -256,18 +254,8 @@
       seqById[r.id] = idx;
     });
 
-    function renderTocGroups(groupSlice, includeOverview) {
+    function renderTocGroups(groupSlice) {
       var out = "";
-      if (includeOverview) {
-        out +=
-          '<li data-go="5" class="sec">' +
-          '<div class="toc-row">' +
-          '<span class="toc-title">Engineering Research Overview</span>' +
-          '<span class="dots"></span>' +
-          '<span class="toc-page">6</span>' +
-          "</div>" +
-          "</li>";
-      }
       groupSlice.forEach(function (g) {
         out +=
           '<li class="toc-cat">' +
@@ -316,8 +304,8 @@
       return out;
     }
 
-    var tocLeftHtml = renderTocGroups(grouped.groups.slice(0, 2), true);
-    var tocRightHtml = renderTocGroups(grouped.groups.slice(2), false);
+    var tocLeftHtml = renderTocGroups(grouped.groups.slice(0, 2));
+    var tocRightHtml = renderTocGroups(grouped.groups.slice(2));
 
     var html = [];
 
@@ -469,72 +457,7 @@
         "</div></div>"
     );
 
-    // 6 · ENGINEERING RESEARCH OVERVIEW
-    var ovCardsHtml = grouped.groups
-      .map(function (g) {
-        var cnt = g.researchers.length;
-        var listHtml = cnt
-          ? '<ul class="ov-list">' +
-            g.researchers
-              .map(function (r) {
-                var sIdx = seqById[r.id];
-                var pNum = RESEARCH_START_PAGE + sIdx * 2;
-                return (
-                  '<li data-go="' +
-                  (pNum - 1) +
-                  '"><span>' +
-                  esc(fullNameTh(r)) +
-                  '</span><span class="ov-pg">p.' +
-                  pNum +
-                  "</span></li>"
-                );
-              })
-              .join("") +
-            "</ul>"
-          : '<div class="ov-empty">ยังไม่มีข้อมูลผลงานวิจัย<br>(Profiles forthcoming)</div>';
-        return (
-          '<div class="ov-card">' +
-          '<div class="ov-card-head">' +
-          '<div><b>' +
-          esc(g.discipline.titleEn) +
-          "</b><span>" +
-          esc(g.discipline.titleTh) +
-          "</span></div>" +
-          '<span class="ov-count">' +
-          cnt +
-          "</span>" +
-          "</div>" +
-          listHtml +
-          "</div>"
-        );
-      })
-      .join("");
-
-    html.push(
-      '<div class="page overview-page"><div class="inner">' +
-        '<div class="eyebrow"><span>Directory by Discipline</span><span>Naresuan University</span></div>' +
-        '<h2>Engineering<br>Research Overview</h2>' +
-        '<p class="ghost" style="margin:2px 0 8px;font-size:11.5px;line-height:1.45">ทำเนียบผลงานวิจัยคณะวิศวกรรมศาสตร์ จำนวน <b>' +
-        list.length +
-        '</b> ท่าน จัดจำแนกตาม 4 สาขาวิชาหลัก และเรียงลำดับตามตำแหน่งทางวิชาการจากระดับสูงสุดลงมา</p>' +
-        '<div class="ov-grid">' +
-        ovCardsHtml +
-        "</div>" +
-        '<div class="ov-note"><b>เกณฑ์การจัดเรียงลำดับ:</b> ศาสตราจารย์ &rsaquo; รองศาสตราจารย์ &rsaquo; ผู้ช่วยศาสตราจารย์ <span style="white-space:nowrap">(ดร. / ป.โท)</span> &rsaquo; อาจารย์ ดร. &rsaquo; อาจารย์ — แตะชื่ออาจารย์ด้านบนเพื่อเปิดดูผลงานวิจัย</div>' +
-        '<div class="folio"><span>Research Overview</span><span>6</span></div>' +
-        "</div></div>"
-    );
-
-    // 7 · DEPARTMENT DIVIDER
-    html.push(
-      '<div class="page right divider"><div class="inner"><span class="bignum" aria-hidden="true">01</span>' +
-        '<div class="eyebrow" style="color:#f3b36b"><span>Faculty Showcase · 01</span></div>' +
-        "<h2>Engineering<br>Researcher</h2>" +
-        '<div class="folio"><span>Section divider</span><span>7</span></div>' +
-        "</div></div>"
-    );
-
-    // 8..(7+2N) · RESEARCHER SPREADS (Left = English Profile & Work, Right = Thai Profile & Work)
+    // 6..(5+2N) · RESEARCHER SPREADS (Left = English Profile & Work, Right = Thai Profile & Work)
     list.forEach(function (r, idx) {
       var leftPageNum = RESEARCH_START_PAGE + idx * 2;
       var rightPageNum = leftPageNum + 1;

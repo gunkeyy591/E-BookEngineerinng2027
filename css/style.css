@@ -83,26 +83,6 @@ p{margin:0 0 8px}
 .toc-cat-th{font:500 11px/1.2 'Prompt','Sarabun',sans-serif;color:var(--navy2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .toc li.toc-empty{display:flex;padding:3px 8px 3px 14px;border-bottom:none;cursor:default;font:italic 400 10.5px/1.25 'Sarabun',sans-serif;color:#7a8aa1}
 
-/* Engineering Research Overview (Page 6) */
-.overview-page .inner{padding:22px 26px 26px}
-.overview-page h2{font-size:25px;line-height:1.05;margin-bottom:4px}
-.ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:4px 0 8px;flex:1;min-height:0;align-content:stretch}
-.ov-card{background:#f7fafe;border:1px solid #cedbe9;border-top:3px solid var(--navy2);border-radius:5px;padding:8px 10px;display:flex;flex-direction:column;gap:5px;box-shadow:0 2px 6px rgba(11,36,71,.04);min-height:0;overflow:hidden}
-.ov-card:nth-child(odd){border-top-color:var(--accent)}
-.ov-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;border-bottom:1px dashed #cdd9ea;padding-bottom:4px}
-.ov-card-head b{display:block;font:700 12px/1.15 'Barlow Condensed','Prompt',sans-serif;letter-spacing:.05em;text-transform:uppercase;color:var(--navy)}
-.ov-card-head span{display:block;font:500 10px/1.2 'Prompt','Sarabun',sans-serif;color:var(--navy2)}
-.ov-count{flex:none;background:var(--navy);color:#fff!important;font:700 12px/1 'Barlow Condensed',sans-serif!important;padding:3px 7px;border-radius:12px}
-.ov-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2.5px}
-.ov-list li[data-go]{display:flex;align-items:baseline;justify-content:space-between;gap:6px;font:500 10px/1.28 'Sarabun',sans-serif;color:#1e2e45;padding:2.5px 4px;border-radius:3px;cursor:pointer;border-bottom:1px dotted #dbe4f0;transition:background .14s,color .14s}
-.ov-list li[data-go]:last-child{border-bottom:none}
-.ov-list li[data-go]:hover{background:rgba(217,121,26,.1);color:var(--accent)}
-.ov-list li[data-go] span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ov-pg{flex:none;font:700 10px 'Barlow Condensed',sans-serif;color:var(--accent)}
-.ov-empty{margin:auto 0;text-align:center;font:italic 400 10.5px/1.35 'Sarabun',sans-serif;color:#7a8aa1}
-.ov-note{background:linear-gradient(135deg,#f4f7fc,#ebf1fa);border:1px solid #c8d6e8;border-left:3px solid var(--accent);border-radius:4px;padding:6px 10px;font:400 10.2px/1.32 'Sarabun',sans-serif;color:#2e415c;margin-top:auto}
-.ov-note b{color:var(--navy);font-family:'Prompt',sans-serif}
-
 .toc-row{display:flex;align-items:baseline;gap:8px;width:100%}
 .toc-num{font:700 10px 'Barlow Condensed',sans-serif;letter-spacing:.06em;color:var(--accent);background:rgba(217,121,26,.12);padding:1px 5px;border-radius:3px;flex:none;line-height:1.15}
 .toc-title{font:600 12px/1.25 'Prompt','Barlow Condensed',sans-serif;color:var(--navy);flex:none;max-width:330px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.01em;transition:color .15s}
