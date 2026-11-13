@@ -81,10 +81,8 @@
   function buildBookHTML() {
     var m = ebookData.meta;
     var list = ebookData.researchers || [];
-    // Total pages = 8 + 2 * N (Always EVEN so Front Cover & Back Cover work properly)
-    var totalPages = 8 + list.length * 2;
-    var summaryPageNum = 6 + list.length * 2;
-    var notesPageNum = 7 + list.length * 2;
+    // Total pages = 6 + 2 * N (Always EVEN so Front Cover & Back Cover work properly)
+    var totalPages = 6 + list.length * 2;
 
     document.getElementById("hdrFaculty").textContent = m.facultyTitle;
     document.getElementById("hdrSub").textContent =
@@ -101,8 +99,6 @@
       var pIdx = 5 + idx * 2; // 0-based index for page (6 + idx*2)
       secs.push([fullNameTh(r), pIdx]);
     });
-    secs.push(["Figures & Summary", summaryPageNum - 1]);
-    secs.push(["Notes & Index", notesPageNum - 1]);
     secs.push(["Back cover", totalPages - 1]);
 
     // Build TOC items
@@ -155,30 +151,6 @@
           : "") +
         "</li>";
     });
-    tocHtml +=
-      '<li data-go="' +
-      (summaryPageNum - 1) +
-      '" class="sec">' +
-      '<div class="toc-row">' +
-      '<span class="toc-title">Figures &amp; Publications</span>' +
-      '<span class="dots"></span>' +
-      '<span class="toc-page">' +
-      summaryPageNum +
-      "</span>" +
-      "</div>" +
-      "</li>";
-    tocHtml +=
-      '<li data-go="' +
-      (notesPageNum - 1) +
-      '" class="sec">' +
-      '<div class="toc-row">' +
-      '<span class="toc-title">Notes &amp; Index</span>' +
-      '<span class="dots"></span>' +
-      '<span class="toc-page">' +
-      notesPageNum +
-      "</span>" +
-      "</div>" +
-      "</li>";
 
     var html = [];
 
@@ -586,68 +558,6 @@
           "</div></div>"
       );
     });
-
-    // SUMMARY FIGURES & PUBLICATIONS PAGE (Left Page before Notes)
-    var pubItems = list
-      .map(function (r) {
-        return (
-          '<p style="font-size:11px;margin-bottom:5px">• <b>' +
-          esc(fullNameTh(r)) +
-          " (" +
-          esc(r.fullNameEn) +
-          "):</b> " +
-          esc(r.research?.publication || "-") +
-          "</p>"
-        );
-      })
-      .join("");
-
-    html.push(
-      '<div class="page"><div class="inner">' +
-        '<div class="eyebrow"><span>Research Summary</span></div>' +
-        '<h2 style="font-size:24px">Figures &amp;<br>Publications</h2>' +
-        '<div class="ph" style="height:125px"><img src="img/sitphan-fig2.jpg" alt="Research Showcase"></div>' +
-        '<p class="ghost" style="margin-top:5px;font-size:11px">Fig. — ภาพรวมห้องปฏิบัติการวิจัยและรางวัลผลงานนวัตกรรม</p>' +
-        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px">' +
-        '<div class="ph" style="height:75px"><img src="img/weerapong-fig1.jpg" alt="Lab 01"></div>' +
-        '<div class="ph" style="height:75px"><img src="img/weerapong-fig2.jpg" alt="Lab 02"></div>' +
-        "</div>" +
-        "<h3>Selected Publications &amp; Honors</h3>" +
-        "<div>" +
-        pubItems +
-        "</div>" +
-        '<div class="folio"><span>' +
-        esc(m.facultyTitle) +
-        "</span><span>" +
-        summaryPageNum +
-        "</span></div>" +
-        "</div></div>"
-    );
-
-    // NOTES & INDEX PAGE (Right Page before Back Cover)
-    html.push(
-      '<div class="page right"><div class="inner">' +
-        '<div class="eyebrow"><span>Colophon</span></div><h2>Notes &amp;<br>Index</h2>' +
-        '<p class="ghost">' +
-        esc(m.colophonText) +
-        "</p>" +
-        '<div class="ph" style="height:100px;margin-top:10px">Partner &amp; Funding Logos</div>' +
-        '<h3>Editorial &amp; Contact</h3><p class="ghost" style="font-size:12px">' +
-        esc(m.facultyTitle) +
-        "<br>" +
-        esc(m.address) +
-        "<br>โทร: " +
-        esc(m.phone) +
-        " · อีเมล: " +
-        esc(m.email) +
-        "</p>" +
-        '<div class="folio"><span>' +
-        esc(m.facultyTitle) +
-        "</span><span>" +
-        notesPageNum +
-        "</span></div>" +
-        "</div></div>"
-    );
 
     // FINAL · BACK COVER
     html.push(
