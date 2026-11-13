@@ -145,6 +145,9 @@
     }
   ];
 
+  // Cover(1), Inside(2), Foreword(3), Contents 1(4), Contents 2(5), Overview(6), Divider(7) -> Faculty spreads start at page 8
+  var RESEARCH_START_PAGE = 8;
+
   function resolveDisciplineKey(r) {
     var explicit = String(r.discipline || "").toLowerCase().trim();
     for (var i = 0; i < DISCIPLINES.length; i++) {
@@ -226,8 +229,8 @@
     var m = ebookData.meta;
     var grouped = buildGroupedResearchers();
     var list = grouped.ordered;
-    // Total pages = 6 + 2 * N (Always EVEN so Front Cover & Back Cover work properly)
-    var totalPages = 6 + list.length * 2;
+    // Total pages = 8 + 2 * N (Always EVEN so Front Cover & Back Cover work properly)
+    var totalPages = RESEARCH_START_PAGE + list.length * 2;
 
     document.getElementById("hdrFaculty").textContent = m.facultyTitle;
     document.getElementById("hdrSub").textContent =
@@ -238,69 +241,83 @@
       ["Cover", 0],
       ["Foreword", 2],
       ["Contents", 3],
-      ["Departments", 4]
+      ["Overview", 5],
+      ["Departments", 6]
     ];
     list.forEach(function (r, idx) {
-      var pIdx = 5 + idx * 2; // 0-based index for page (6 + idx*2)
+      var pIdx = RESEARCH_START_PAGE - 1 + idx * 2; // 0-based index for left EN page
       secs.push([fullNameTh(r), pIdx]);
     });
     secs.push(["Back cover", totalPages - 1]);
 
-    // Build TOC items grouped by discipline and sorted descending by academic rank
-    var tocHtml =
-      '<li data-go="4" class="sec">' +
-      '<div class="toc-row">' +
-      '<span class="toc-title">Engineering Research Overview</span>' +
-      '<span class="dots"></span>' +
-      '<span class="toc-page">5</span>' +
-      "</div>" +
-      "</li>";
-    var seqIdx = 0;
-    grouped.groups.forEach(function (g) {
-      tocHtml +=
-        '<li class="toc-cat">' +
-        '<span class="toc-cat-en">' +
-        esc(g.discipline.titleEn) +
-        "</span>" +
-        '<span class="toc-cat-th">' +
-        esc(g.discipline.titleTh) +
-        "</span>" +
-        "</li>";
-      if (!g.researchers.length) {
-        tocHtml +=
-          '<li class="toc-empty">— ยังไม่มีข้อมูลผลงานวิจัย (No profiles yet)</li>';
-        return;
-      }
-      g.researchers.forEach(function (r) {
-        var pNum = 6 + seqIdx * 2;
-        var pIdx = pNum - 1;
-        var numStr = (seqIdx + 1 < 10 ? "0" : "") + (seqIdx + 1);
-        seqIdx++;
-        var subLabel = r.majorTh || r.deptNameTh || "";
-        tocHtml +=
-          '<li data-go="' +
-          pIdx +
-          '">' +
-          '<div class="toc-row">' +
-          '<span class="toc-num">' +
-          numStr +
-          "</span>" +
-          '<span class="toc-title">' +
-          esc(fullNameTh(r)) +
-          "</span>" +
-          '<span class="dots"></span>' +
-          '<span class="toc-page">' +
-          pNum +
-          "–" +
-          (pNum + 1) +
-          "</span>" +
-          "</div>" +
-          (subLabel
-            ? '<div class="toc-dept">' + esc(subLabel) + "</div>"
-            : "") +
-          "</li>";
-      });
+    // Track 1-based faculty sequence numbers per spread index
+    var seqById = {};
+    list.forEach(function (r, idx) {
+      seqById[r.id] = idx;
     });
+
+    function renderTocGroups(groupSlice, includeOverview) {
+      var out = "";
+      if (includeOverview) {
+        out +=
+          '<li data-go="5" class="sec">' +
+          '<div class="toc-row">' +
+          '<span class="toc-title">Engineering Research Overview</span>' +
+          '<span class="dots"></span>' +
+          '<span class="toc-page">6</span>' +
+          "</div>" +
+          "</li>";
+      }
+      groupSlice.forEach(function (g) {
+        out +=
+          '<li class="toc-cat">' +
+          '<span class="toc-cat-en">' +
+          esc(g.discipline.titleEn) +
+          "</span>" +
+          '<span class="toc-cat-th">' +
+          esc(g.discipline.titleTh) +
+          "</span>" +
+          "</li>";
+        if (!g.researchers.length) {
+          out +=
+            '<li class="toc-empty">— ยังไม่มีข้อมูลผลงานวิจัย (No profiles yet)</li>';
+          return;
+        }
+        g.researchers.forEach(function (r) {
+          var sIdx = seqById[r.id];
+          var pNum = RESEARCH_START_PAGE + sIdx * 2;
+          var pIdx = pNum - 1;
+          var numStr = (sIdx + 1 < 10 ? "0" : "") + (sIdx + 1);
+          var subLabel = r.majorTh || r.deptNameTh || "";
+          out +=
+            '<li data-go="' +
+            pIdx +
+            '">' +
+            '<div class="toc-row">' +
+            '<span class="toc-num">' +
+            numStr +
+            "</span>" +
+            '<span class="toc-title">' +
+            esc(fullNameTh(r)) +
+            "</span>" +
+            '<span class="dots"></span>' +
+            '<span class="toc-page">' +
+            pNum +
+            "–" +
+            (pNum + 1) +
+            "</span>" +
+            "</div>" +
+            (subLabel
+              ? '<div class="toc-dept">' + esc(subLabel) + "</div>"
+              : "") +
+            "</li>";
+        });
+      });
+      return out;
+    }
+
+    var tocLeftHtml = renderTocGroups(grouped.groups.slice(0, 2), true);
+    var tocRightHtml = renderTocGroups(grouped.groups.slice(2), false);
 
     var html = [];
 
@@ -404,13 +421,25 @@
         "</div></div>"
     );
 
-    // 4 · CONTENTS
+    // 4 · CONTENTS (Part 1: Civil & Industrial)
     html.push(
       '<div class="page contents-page"><div class="inner">' +
-        '<div class="eyebrow"><span>Navigate · Table of Contents</span><span>Faculty of Engineering</span></div>' +
-        '<h2>Contents <span class="th-sub" style="font:500 13.5px \'Prompt\',\'Sarabun\',sans-serif;color:var(--muted);text-transform:none;letter-spacing:0;margin-left:auto">สารบัญผลงานวิจัย</span></h2>' +
+        '<div class="eyebrow"><span>Navigate · Table of Contents</span><span>Part 1 / 2</span></div>' +
+        '<h2>Contents <span class="th-sub" style="font:500 13.5px \'Prompt\',\'Sarabun\',sans-serif;color:var(--muted);text-transform:none;letter-spacing:0;margin-left:auto">สารบัญผลงานวิจัย (1/2)</span></h2>' +
         '<ul class="toc">' +
-        tocHtml +
+        tocLeftHtml +
+        "</ul>" +
+        '<div class="folio"><span>Contents · Civil &amp; Industrial</span><span>4</span></div>' +
+        "</div></div>"
+    );
+
+    // 5 · CONTENTS (Part 2: Mechanical & Electrical/Computer + Spread Guide)
+    html.push(
+      '<div class="page right contents-page"><div class="inner">' +
+        '<div class="eyebrow"><span>Navigate · Table of Contents</span><span>Part 2 / 2</span></div>' +
+        '<h2>Contents <span class="th-sub" style="font:500 13.5px \'Prompt\',\'Sarabun\',sans-serif;color:var(--muted);text-transform:none;letter-spacing:0;margin-left:auto">สารบัญผลงานวิจัย (2/2)</span></h2>' +
+        '<ul class="toc">' +
+        tocRightHtml +
         "</ul>" +
         '<div class="toc-guide">' +
         '<div class="guide-header">' +
@@ -436,22 +465,78 @@
         "<span>คลิกที่รายชื่ออาจารย์ในสารบัญ เพื่อพลิกหน้าไปยังผลงานนั้นทันที</span>" +
         "</div>" +
         "</div>" +
-        '<div class="folio"><span>Contents</span><span>4</span></div>' +
+        '<div class="folio"><span>Contents · Mechanical &amp; Electrical</span><span>5</span></div>' +
         "</div></div>"
     );
 
-    // 5 · DEPARTMENT DIVIDER
+    // 6 · ENGINEERING RESEARCH OVERVIEW
+    var ovCardsHtml = grouped.groups
+      .map(function (g) {
+        var cnt = g.researchers.length;
+        var listHtml = cnt
+          ? '<ul class="ov-list">' +
+            g.researchers
+              .map(function (r) {
+                var sIdx = seqById[r.id];
+                var pNum = RESEARCH_START_PAGE + sIdx * 2;
+                return (
+                  '<li data-go="' +
+                  (pNum - 1) +
+                  '"><span>' +
+                  esc(fullNameTh(r)) +
+                  '</span><span class="ov-pg">p.' +
+                  pNum +
+                  "</span></li>"
+                );
+              })
+              .join("") +
+            "</ul>"
+          : '<div class="ov-empty">ยังไม่มีข้อมูลผลงานวิจัย<br>(Profiles forthcoming)</div>';
+        return (
+          '<div class="ov-card">' +
+          '<div class="ov-card-head">' +
+          '<div><b>' +
+          esc(g.discipline.titleEn) +
+          "</b><span>" +
+          esc(g.discipline.titleTh) +
+          "</span></div>" +
+          '<span class="ov-count">' +
+          cnt +
+          "</span>" +
+          "</div>" +
+          listHtml +
+          "</div>"
+        );
+      })
+      .join("");
+
+    html.push(
+      '<div class="page overview-page"><div class="inner">' +
+        '<div class="eyebrow"><span>Directory by Discipline</span><span>Naresuan University</span></div>' +
+        '<h2>Engineering<br>Research Overview</h2>' +
+        '<p class="ghost" style="margin:2px 0 8px;font-size:11.5px;line-height:1.45">ทำเนียบผลงานวิจัยคณะวิศวกรรมศาสตร์ จำนวน <b>' +
+        list.length +
+        '</b> ท่าน จัดจำแนกตาม 4 สาขาวิชาหลัก และเรียงลำดับตามตำแหน่งทางวิชาการจากระดับสูงสุดลงมา</p>' +
+        '<div class="ov-grid">' +
+        ovCardsHtml +
+        "</div>" +
+        '<div class="ov-note"><b>เกณฑ์การจัดเรียงลำดับ:</b> ศาสตราจารย์ &rsaquo; รองศาสตราจารย์ &rsaquo; ผู้ช่วยศาสตราจารย์ <span style="white-space:nowrap">(ดร. / ป.โท)</span> &rsaquo; อาจารย์ ดร. &rsaquo; อาจารย์ — แตะชื่ออาจารย์ด้านบนเพื่อเปิดดูผลงานวิจัย</div>' +
+        '<div class="folio"><span>Research Overview</span><span>6</span></div>' +
+        "</div></div>"
+    );
+
+    // 7 · DEPARTMENT DIVIDER
     html.push(
       '<div class="page right divider"><div class="inner"><span class="bignum" aria-hidden="true">01</span>' +
         '<div class="eyebrow" style="color:#f3b36b"><span>Faculty Showcase · 01</span></div>' +
         "<h2>Engineering<br>Researcher</h2>" +
-        '<div class="folio"><span>Section divider</span><span>5</span></div>' +
+        '<div class="folio"><span>Section divider</span><span>7</span></div>' +
         "</div></div>"
     );
 
-    // 6..(5+2N) · RESEARCHER SPREADS (Left = English Profile & Work, Right = Thai Profile & Work)
+    // 8..(7+2N) · RESEARCHER SPREADS (Left = English Profile & Work, Right = Thai Profile & Work)
     list.forEach(function (r, idx) {
-      var leftPageNum = 6 + idx * 2;
+      var leftPageNum = RESEARCH_START_PAGE + idx * 2;
       var rightPageNum = leftPageNum + 1;
       var res = r.research || {};
 
@@ -510,7 +595,7 @@
               return (
                 '<figure class="res-fig-card">' +
                 '<img src="' +
-                esc(f.url) +
+                esc(f.urlTh || f.url) +
                 '" alt="' +
                 esc(f.captionTh || "") +
                 '">' +
@@ -564,9 +649,12 @@
       }
 
       // LEFT PAGE: ENGLISH RESEARCH PROFILE & WORK
+      var noPubsEnCls = pubsEnList.length ? "" : " no-pubs";
+      var noPubsThCls = pubsThList.length ? "" : " no-pubs";
       html.push(
         '<div class="page researcher-page page-res-' +
           esc(r.id) +
+          noPubsEnCls +
           '"><div class="inner">' +
           '<div class="dept-banner">' +
           '<div class="dept-banner-top">' +
@@ -642,6 +730,7 @@
       html.push(
         '<div class="page right researcher-page page-res-' +
           esc(r.id) +
+          noPubsThCls +
           '"><div class="inner">' +
           '<div class="dept-banner th">' +
           '<div class="dept-banner-top">' +
@@ -823,7 +912,7 @@
       var targetEl = start.target && start.target.nodeType === 1 ? start.target : e.target;
       if (!targetEl || !targetEl.closest) return;
 
-      var tocLi = targetEl.closest(".toc li[data-go]");
+      var tocLi = targetEl.closest("[data-go]");
       if (tocLi) {
         lastTouchActionAt = Date.now();
         pf.flip(+tocLi.dataset.go);
@@ -975,8 +1064,8 @@
     pf.on("flip", upd);
     bindBookTouchTap(newBook);
 
-    // Bind TOC links inside book
-    newBook.querySelectorAll(".toc li[data-go]").forEach(function (li) {
+    // Bind TOC & Overview jump links inside book
+    newBook.querySelectorAll("[data-go]").forEach(function (li) {
       li.addEventListener("click", function (e) {
         e.stopPropagation();
         if (Date.now() - lastTouchActionAt < 500) return;
@@ -1226,7 +1315,7 @@
     }
     var matches = [];
     buildGroupedResearchers().ordered.forEach(function (r, idx) {
-      var pNum = 6 + idx * 2;
+      var pNum = RESEARCH_START_PAGE + idx * 2;
       var text = [
         r.academicTitle,
         r.fullName,
