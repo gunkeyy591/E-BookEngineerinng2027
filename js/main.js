@@ -314,7 +314,6 @@
       '<div class="page right divider"><div class="inner"><span class="bignum" aria-hidden="true">01</span>' +
         '<div class="eyebrow" style="color:#f3b36b"><span>Faculty Showcase · 01</span></div>' +
         "<h2>Engineering<br>Research</h2>" +
-        '<p style="color:#c9d7ee">รวมผลงานวิจัยและนวัตกรรมเด่นของคณาจารย์คณะวิศวกรรมศาสตร์ แยกแสดงข้อมูล 2 ภาษา (หน้าซ้าย: ผลงานภาษาอังกฤษ · หน้าขวา: ผลงานภาษาไทย)</p>' +
         '<div class="folio"><span>Section divider</span><span>5</span></div>' +
         "</div></div>"
     );
