@@ -24,6 +24,10 @@
       .replace(/"/g, "&quot;");
   }
 
+  function fullNameTh(r) {
+    return (r.academicTitle ? r.academicTitle + " " : "") + (r.fullName || "");
+  }
+
   // Generate offline SVG QR code for research links
   function makeQrSvg(text, size) {
     size = size || 36;
@@ -95,7 +99,7 @@
     ];
     list.forEach(function (r, idx) {
       var pIdx = 5 + idx * 2; // 0-based index for page (6 + idx*2)
-      secs.push([r.academicTitle + " " + r.fullName, pIdx]);
+      secs.push([fullNameTh(r), pIdx]);
     });
     secs.push(["Figures & Summary", summaryPageNum - 1]);
     secs.push(["Notes & Index", notesPageNum - 1]);
@@ -137,7 +141,7 @@
         numStr +
         "</span>" +
         '<span class="toc-title">' +
-        esc(r.academicTitle + " " + r.fullName) +
+        esc(fullNameTh(r)) +
         "</span>" +
         '<span class="dots"></span>' +
         '<span class="toc-page">' +
@@ -536,7 +540,7 @@
           "</div>" +
           '<div class="profile-meta">' +
           "<h3>" +
-          esc(r.academicTitle + " " + r.fullName) +
+          esc(fullNameTh(r)) +
           "</h3>" +
           '<div class="interest-label">' +
           esc(r.interestsLabelTh || "หัวข้อวิจัยที่สนใจ:") +
@@ -574,7 +578,7 @@
           figsHtmlTh +
           '<div class="res-bottom-bar">' +
           '<div class="folio"><span>' +
-          esc(r.academicTitle + " " + r.fullName) +
+          esc(fullNameTh(r)) +
           "</span><span>" +
           rightPageNum +
           "</span></div>" +
@@ -588,7 +592,7 @@
       .map(function (r) {
         return (
           '<p style="font-size:11px;margin-bottom:5px">• <b>' +
-          esc(r.academicTitle + " " + r.fullName) +
+          esc(fullNameTh(r)) +
           " (" +
           esc(r.fullNameEn) +
           "):</b> " +
@@ -817,7 +821,7 @@
     if (!r) return;
     var res = r.research || {};
     resModalTitle.textContent =
-      r.academicTitle + " " + r.fullName + " · " + r.fullNameEn;
+      fullNameTh(r) + " · " + r.fullNameEn;
 
     var figsModalHtml = "";
     if (r.figures && r.figures.length) {
@@ -878,7 +882,7 @@
       esc(r.topicEn || res.titleEn) +
       "</p>" +
       '<p style="margin:0;font-size:13px"><b>' +
-      esc(r.academicTitle + " " + r.fullName) +
+      esc(fullNameTh(r)) +
       " (" +
       esc(r.fullNameEn) +
       ")</b></p>" +
@@ -1004,7 +1008,7 @@
         .toLowerCase();
       if (text.indexOf(q) !== -1) {
         matches.push({
-          label: r.academicTitle + " " + r.fullName + " (" + r.fullNameEn + ")",
+          label: fullNameTh(r) + " (" + r.fullNameEn + ")",
           sub: r.topicTh || r.research?.title || r.deptNameTh,
           pageIdx: pNum - 1,
           pageNum: pNum + "–" + (pNum + 1)

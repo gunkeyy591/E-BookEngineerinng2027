@@ -154,6 +154,117 @@ p{margin:0 0 8px}
   margin-bottom:0;
 }
 
+/* เฉพาะหน้า พลปรีชา ชิดบุรี (หน้า 10–11): จัดสัดส่วนให้พอดีกับบทคัดย่อและผลงานตีพิมพ์ 3 รายการ */
+.page-res-res-3 .inner{
+  grid-template-rows:44px 36px 110px 115px 166px 206px 1fr auto;
+  gap:5px;
+}
+.page-res-res-3 .profile.compact{
+  padding:7px 16px;
+}
+.page-res-res-3 .profile.compact .ph{
+  width:68px;
+  height:88px;
+}
+.page-res-res-3 .profile-meta h3{
+  font-size:15.5px;
+  margin-bottom:2px;
+}
+.page-res-res-3 .interest-list,
+.page-res-res-3 .interest-list.th{
+  font-size:10.2px;
+  line-height:1.23;
+}
+.page-res-res-3 .bio-card{
+  justify-content:flex-start;
+  padding:7px 16px;
+}
+.page-res-res-3 .bio-lead,
+.page-res-res-3 .bio-lead.th{
+  font-size:10.1px;
+  line-height:1.31;
+}
+.page-res-res-3 .info-card{
+  padding:7px 13px;
+}
+.page-res-res-3 .info-card p,
+.page-res-res-3 .info-card p.th{
+  font-size:9.6px;
+  line-height:1.28;
+}
+.page-res-res-3 .res-pubs-box{
+  justify-content:flex-start;
+  padding:6px 14px;
+}
+.page-res-res-3 .res-pubs-box h4{
+  margin-bottom:2px;
+}
+.page-res-res-3 .res-pubs-box ul,
+.page-res-res-3 .res-pubs-box ul.th{
+  font-size:8.8px;
+  line-height:1.22;
+  padding-left:13px;
+}
+.page-res-res-3 .res-pubs-box li{
+  margin-bottom:2px;
+}
+.page-res-res-3 .res-fig-card:nth-child(2) img{
+  object-fit:contain;
+  background:#fff;
+  padding:4px;
+  box-sizing:border-box;
+}
+.page-res-res-3 .res-fig-card figcaption{
+  height:36px;
+  min-height:36px;
+  padding:4px 8px;
+}
+
+/* เฉพาะหน้า ผศ. ดร. สสิกรณณ์ เหลืองวิชชเจริญ (หน้า 12–13): เพิ่มพื้นที่กรอบผลงานตีพิมพ์และแสดงภาพเต็มสัดส่วน */
+.page-res-res-4 .inner{
+  grid-template-rows:46px 38px 122px 104px 134px 188px 1fr auto;
+}
+.page-res-res-4 .profile.compact{
+  padding:8px 16px;
+}
+.page-res-res-4 .bio-card,
+.page-res-res-4 .res-pubs-box{
+  justify-content:flex-start;
+}
+.page-res-res-4 .bio-card{
+  padding:7px 16px;
+}
+.page-res-res-4 .bio-lead,
+.page-res-res-4 .bio-lead.th{
+  font-size:10.7px;
+  line-height:1.36;
+}
+.page-res-res-4 .info-card{
+  padding:7px 14px;
+}
+.page-res-res-4 .info-card p,
+.page-res-res-4 .info-card p.th{
+  font-size:10.4px;
+  line-height:1.33;
+}
+.page-res-res-4 .res-pubs-box{
+  padding:7px 16px;
+}
+.page-res-res-4 .res-pubs-box ul,
+.page-res-res-4 .res-pubs-box ul.th{
+  font-size:9.6px;
+  line-height:1.26;
+}
+.page-res-res-4 .res-pubs-box li{
+  margin-bottom:3px;
+}
+.page-res-res-4 .res-fig-card img{
+  object-fit:contain;
+  background:#fff;
+  padding:4px;
+  box-sizing:border-box;
+}
+
 .bio-card{background:#f6f9fe;border:1px solid #d5e0ef;border-radius:4px;padding:8px 16px 8px;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;overflow:hidden}
 .bio-card h4{margin:0 0 3px;font:600 11.5px/1.2 'Barlow Condensed','Prompt',sans-serif;color:var(--navy2);text-transform:uppercase;letter-spacing:.05em;flex:none}
 .bio-lead{font-size:11.2px;line-height:1.42;margin:0;color:#273852;text-align:left;text-wrap:pretty;word-break:break-word}

@@ -237,125 +237,201 @@ window.DEFAULT_EBOOK_DATA = {
     {
       id: "res-3",
       deptCode: "03",
-      deptNameEn: "Electrical & Computer Engineering",
-      majorEn: "Major: Electrical & Computer Engineering",
-      deptNameTh: "ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์",
-      majorTh: "สาขาวิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์",
-      academicTitle: "ศ.ดร.",
-      fullName: "อัครเดช วรโชติเมธี",
-      fullNameEn: "Prof. Dr. Akaradet Worachotmethee",
-      email: "akaradet.w@university.ac.th",
+      deptNameEn: "Department of Civil Engineering",
+      majorEn: "Major: Surveying Engineering / Geomatics",
+      deptNameTh: "ภาควิชาวิศวกรรมโยธา",
+      majorTh: "สาขาวิชาวิศวกรรมสำรวจและภูมิสารสนเทศ",
+      academicTitle: "",
+      fullName: "พลปรีชา ชิดบุรี",
+      fullNameEn: "Polpreecha Chidburee",
+      email: "",
       portraitText: "Portrait\n3 : 4",
-      portraitUrl: "",
+      portraitUrl: "img/polpreecha-portrait.jpg",
       topicEn:
-        "Real-Time Surface Defect Inspection on Metal Stamping Lines via Lightweight Vision Transformers",
-      topicTh:
-        "ระบบตรวจสอบคุณภาพชิ้นงานโลหะความเร็วสูงบนสายพานการผลิตด้วยโครงข่ายประสาทเทียมเชิงลึกแบบน้ำหนักเบา",
+        "UAV Surveying for Infrastructure and Cultural Heritage Monitoring",
+      topicTh: "การติดตามโครงสร้างพื้นฐานด้วยอากาศยานไร้คนขับ",
       biographyEn:
-        "Head of the Computer Vision and Embedded Systems Laboratory, focusing on applying Edge AI and smart sensors to industrial manufacturing (Smart Factory) and smart grid power networks.",
+        "My research integrates UAV photogrammetry, GNSS RTK/PPK positioning, national CORS networks and 3D point-cloud analysis to produce reliable spatial information for engineering surveys. Recent case studies address deformation assessment of dam side-slopes and geometric condition assessment of cultural heritage structures. Focusing on positional accuracy, uncertainty, suitable ground control and repeatable 3D survey workflows.",
       biography:
-        "หัวหน้าห้องปฏิบัติการวิทัศน์คอมพิวเตอร์และระบบสมองกลฝังตัว มุ่งเน้นการนำ Edge AI และเซ็นเซอร์อัจฉริยะไปประยุกต์ใช้ในโรงงานอุตสาหกรรม (Smart Factory) และระบบโครงข่ายไฟฟ้าสมาร์ทกริด",
-      interestsLabelEn: "Field of interest:",
+        "การสำรวจด้วยภาพถ่ายจากอากาศยานไร้คนขับ (UAV Photogrammetry) ร่วมกับการสำรวจด้วยดาวเทียม GNSS แบบความแม่นยำสูง เช่น วิธี RTK/PPK ร่วมกับโครงข่าย CORS เพื่อสร้างแบบจำลองสามมิติที่มีความถูกต้องสำหรับงานวิศวกรรม โดยเน้นการติดตามการเปลี่ยนแปลงของโครงสร้างพื้นฐาน เช่น สภาพทางลาดของเขื่อน และการประเมินและติดตามการเปลี่ยนแปลงของโบราณสถาน รวมทั้งการวิเคราะห์ความคลาดเคลื่อนและความไม่แน่นอนของผลผลิตจากการสำรวจด้วยภาพถ่าย",
+      interestsLabelEn: "My recent research interests are",
       interestsEn: [
-        "Edge AI & Computer Vision",
-        "Smart Grid Systems",
-        "Embedded Systems & IIoT"
+        "High-accuracy UAV photogrammetry and georeferencing using RTK/PPK GNSS, CORS and ground control points",
+        "3D reconstruction, point-cloud comparison and uncertainty-aware change detection",
+        "UAV-based monitoring of dams, embankments and cultural heritage"
       ],
-      interestsLabelTh: "หัวข้อวิจัยที่สนใจ:",
+      interestsLabelTh: "หัวข้อวิจัยที่สนใจอยู่ในปัจจุบัน ได้แก่",
       interestsTh: [
-        "ปัญญาประดิษฐ์บนระบบสมองกลฝังตัวและวิทัศน์คอมพิวเตอร์",
-        "ระบบโครงข่ายไฟฟ้าอัจฉริยะ (Smart Grid)",
-        "อินเทอร์เน็ตของสรรพสิ่งสำหรับงานอุตสาหกรรม (IIoT)"
+        "การกำหนดตำแหน่งความแม่นยำสูงสำหรับ UAV ด้วย RTK/PPK, CORS และจุดควบคุมภาคพื้นดิน",
+        "การสร้างแบบจำลองสามมิติและการติดตามการเปลี่ยนแปลงจาก Point Cloud โดยคำนึงถึงความไม่แน่นอน",
+        "การตรวจสอบโครงสร้างพื้นฐานและโบราณสถานด้วย UAV Photogrammetry"
       ],
-      interests: ["Edge AI & Vision", "Smart Grid", "Embedded Systems", "IIoT"],
+      interests: [
+        "UAV Photogrammetry",
+        "GNSS RTK/PPK & CORS",
+        "3D Point-Cloud Analysis",
+        "Infrastructure & Heritage Monitoring"
+      ],
       inFutureLabelEn: "In the Future",
       inFutureEn:
-        "Develop sub-millimeter surface defect detection algorithms compressed for direct execution on embedded edge boards without cloud dependency.",
-      afterGradLabelEn: "Expected Impact",
+        "To develop repeatable multi-epoch monitoring workflows by integrating UAV photogrammetry and UAV-LiDAR with robust GNSS georeferencing. Future research will quantify changes and evaluate advanced positioning methods to explore automated 3D monitoring for infrastructure maintenance and heritage conservation.",
+      afterGradLabelEn: "After Graduation",
       afterGradEn:
-        "Achieves 99.2% defect sorting accuracy at 90 parts per minute, reducing production line waste by over 40%.",
-      inFutureLabelTh: "การประยุกต์ใช้ในอนาคต",
+        "The research is expected to plan and conduct UAV/GNSS surveys, create validated 3D geospatial products, assess measurement uncertainty and interpret monitoring results for responsible decision-making. These competencies support professional surveying, infrastructure management, heritage conservation and advanced research.",
+      inFutureLabelTh: "ในอนาคต:",
       inFutureTh:
-        "พัฒนาอัลกอริทึมตรวจจับรอยร้าวและตำหนิระดับซับมิลลิเมตรบนผิวโลหะด้วยโมเดลปัญญาประดิษฐ์ที่ประมวลผลบนบอร์ดสมองกลฝังตัวได้โดยตรง",
-      afterGradLabelTh: "ผลลัพธ์และการนำไปใช้",
+        "พัฒนาการติดตามหลายช่วงเวลาด้วย UAV Photogrammetry และ UAV-LiDAR ร่วมกับการสำรวจด้วยดาวเทียม GNSS แบบความแม่นยำสูง เช่น PPP/PPP-AR เพื่อศึกษาความสามารถในการตรวจจับการเปลี่ยนแปลงและการวิเคราะห์สามมิติแบบกึ่งอัตโนมัติ เพื่อสนับสนุนงานบำรุงรักษาและอนุรักษ์อย่างยั่งยืน",
+      afterGradLabelTh: "เมื่อสิ้นสุดการศึกษา:",
       afterGradTh:
-        "มีความแม่นยำในการคัดแยกชิ้นงานบกพร่อง 99.2% ที่ความเร็ว 90 ชิ้นต่อนาที ลดการสูญเสียในสายการผลิตได้กว่า 40%",
-      figures: [],
+        "คาดหวังให้การศึกษาสามารถวางแผนการสำรวจด้วย UAV/GNSS เพื่อสร้างแบบจำลองสามมิติ ประเมินความถูกต้องและความไม่แน่นอน รวมทั้งนำผลไปใช้ด้านวิศวกรรมสำรวจ โครงสร้างพื้นฐาน การอนุรักษ์โบราณสถาน และงานวิจัย",
+      figures: [
+        {
+          url: "img/polpreecha-fig1.jpg",
+          captionEn: "3D model heritage obtained from RTK-UAV",
+          captionTh: "แบบจำลองสามมิติโบราณสถานจาก RTK-UAV"
+        },
+        {
+          url: "img/polpreecha-fig2.jpg?v=6",
+          captionEn: "M3C2 slope deformation of Dam monitoring",
+          captionTh: "ผลการเปรียบเทียบผิวทางลาดเขื่อนด้วย M3C2"
+        }
+      ],
+      pubsLabelEn: "Selected Publications",
+      publicationsEn: [
+        "Chidburee, P., Nusit, K., Wisitthikhet, T., Sathongmaeo, T., Thongkhumyat, S., & Khueanmanee, P. (2022). The application of UAV photogrammetry to monitor the deformation of side-slope protection: A case study of Khwae Noi Bamrungdan Dam, Phitsanulok Province. In Proc. 27th National Convention on Civil Engineering (pp. SGI11-1–SGI11-7). EIT.",
+        "Chidburee, P., Nusit, K., Wongphakdi, N., Homniam, P., & Charoenphon, C. (2024). Accuracy assessment of RTK/PPK UAV photogrammetric approach combined with national CORS network data in Thailand. In Proc. 29th National Convention on Civil Engineering (pp. SGI16-1–SGI016-7). EIT.",
+        "Phimsena, C., Phuengkaeo, N., Unchanam, N., Kaeophunsuk, P., & Chidburee, P. (2026). An application of Real-Time Kinematic Unmanned Aerial Vehicle (RTK-UAV) surveying for structural conservation of cultural heritage: A case study of Wat Phra Si Rattana Mahathat Woramahawihan in Phitsanulok province. In Proc. 31st National Convention on Civil Engineering. EIT."
+      ],
+      pubsLabelTh: "ผลงานตีพิมพ์วิชาการที่คัดสรร (Selected Publications)",
+      publicationsTh: [
+        "Chidburee, P., Nusit, K., Wisitthikhet, T., Sathongmaeo, T., Thongkhumyat, S., & Khueanmanee, P. (2022). The application of UAV photogrammetry to monitor the deformation of side-slope protection: A case study of Khwae Noi Bamrungdan Dam, Phitsanulok Province. In Proc. 27th National Convention on Civil Engineering (pp. SGI11-1–SGI11-7). EIT.",
+        "Chidburee, P., Nusit, K., Wongphakdi, N., Homniam, P., & Charoenphon, C. (2024). Accuracy assessment of RTK/PPK UAV photogrammetric approach combined with national CORS network data in Thailand. In Proc. 29th National Convention on Civil Engineering (pp. SGI16-1–SGI016-7). EIT.",
+        "Phimsena, C., Phuengkaeo, N., Unchanam, N., Kaeophunsuk, P., & Chidburee, P. (2026). An application of Real-Time Kinematic Unmanned Aerial Vehicle (RTK-UAV) surveying for structural conservation of cultural heritage: A case study of Wat Phra Si Rattana Mahathat Woramahawihan in Phitsanulok province. In Proc. 31st National Convention on Civil Engineering. EIT."
+      ],
       publications: [
-        "A. Worachotmethee et al., IEEE Transactions on Industrial Informatics (Q1), 2026."
+        "Chidburee, P., Nusit, K., Wisitthikhet, T., Sathongmaeo, T., Thongkhumyat, S., & Khueanmanee, P. (2022). The application of UAV photogrammetry to monitor the deformation of side-slope protection: A case study of Khwae Noi Bamrungdan Dam, Phitsanulok Province. In Proc. 27th National Convention on Civil Engineering (pp. SGI11-1–SGI11-7). EIT.",
+        "Chidburee, P., Nusit, K., Wongphakdi, N., Homniam, P., & Charoenphon, C. (2024). Accuracy assessment of RTK/PPK UAV photogrammetric approach combined with national CORS network data in Thailand. In Proc. 29th National Convention on Civil Engineering (pp. SGI16-1–SGI016-7). EIT.",
+        "Phimsena, C., Phuengkaeo, N., Unchanam, N., Kaeophunsuk, P., & Chidburee, P. (2026). An application of Real-Time Kinematic Unmanned Aerial Vehicle (RTK-UAV) surveying for structural conservation of cultural heritage: A case study of Wat Phra Si Rattana Mahathat Woramahawihan in Phitsanulok province. In Proc. 31st National Convention on Civil Engineering. EIT."
       ],
       research: {
         code: "03",
-        title:
-          "ระบบตรวจสอบคุณภาพชิ้นงานโลหะความเร็วสูงบนสายพานการผลิตด้วยโครงข่ายประสาทเทียมเชิงลึกแบบน้ำหนักเบา",
+        title: "การติดตามโครงสร้างพื้นฐานด้วยอากาศยานไร้คนขับ",
         titleEn:
-          "Real-Time Surface Defect Inspection on Metal Stamping Lines via Lightweight Vision Transformers",
+          "UAV Surveying for Infrastructure and Cultural Heritage Monitoring",
         abstract:
-          "พัฒนาอัลกอริทึมตรวจจับรอยร้าวและตำหนิระดับซับมิลลิเมตรบนผิวโลหะด้วยโมเดลปัญญาประดิษฐ์ที่บีบอัดให้ประมวลผลบนบอร์ดสมองกลฝังตัวได้โดยตรงโดยไม่ต้องเชื่อมต่อคลาวด์",
+          "การสำรวจด้วยภาพถ่ายจากอากาศยานไร้คนขับ (UAV Photogrammetry) ร่วมกับการสำรวจด้วยดาวเทียม GNSS แบบความแม่นยำสูง (RTK/PPK, CORS) เพื่อสร้างแบบจำลองสามมิติและติดตามการเปลี่ยนแปลงของโครงสร้างพื้นฐานและโบราณสถาน",
         methodology:
-          "ออกแบบโครงสร้าง Mixed-Precision Quantization ร่วมกับระบบกล้องความเร็วสูงและไฟส่องสว่างแบบ Dark-Field",
+          "บูรณาการ UAV Photogrammetry, GNSS RTK/PPK, โครงข่าย CORS และการเปรียบเทียบ Point Cloud ด้วย M3C2 พร้อมวิเคราะห์ความคลาดเคลื่อนและความไม่แน่นอน",
         findings:
-          "มีความแม่นยำในการคัดแยกชิ้นงานบกพร่อง 99.2% ที่ความเร็ว 90 ชิ้นต่อนาที ลดการสูญเสียในสายการผลิตได้กว่า 40%",
+          "ได้แบบจำลองสามมิติความถูกต้องสูงสำหรับติดตามการเปลี่ยนรูปของทางลาดเขื่อนและการอนุรักษ์โบราณสถาน",
         figureCaption:
-          "Fig. 3 — สถาปัตยกรรมระบบ Edge AI Inspection และตัวอย่างผลลัพธ์การตรวจจับตำหนิ",
-        figureUrl: "",
+          "แบบจำลองสามมิติโบราณสถานจาก RTK-UAV และผลการเปรียบเทียบผิวทางลาดเขื่อนด้วย M3C2",
+        figureUrl: "img/polpreecha-fig1.jpg",
         publication:
-          "A. Worachotmethee et al., IEEE Transactions on Industrial Informatics (Q1), 2026.",
-        link: "https://doi.org/10.1109/TII.2026.03"
+          "Chidburee, P. et al., Proc. 27th & 29th NCCE (2022, 2024); Phimsena, C. & Chidburee, P., Proc. 31st NCCE (2026).",
+        link: "https://www.eng.nu.ac.th"
       }
     },
     {
       id: "res-4",
       deptCode: "04",
-      deptNameEn: "Industrial & Logistics Engineering",
-      majorEn: "Major: Industrial Engineering",
-      deptNameTh: "ภาควิชาวิศวกรรมอุตสาหการและโลจิสติกส์",
-      majorTh: "สาขาวิชาวิศวกรรมอุตสาหการ",
-      academicTitle: "[ตำแหน่งทางวิชาการ",
-      fullName: "ชื่อ-นามสกุล อาจารย์ท่านต่อไป]",
-      fullNameEn: "[Academic Title & Full Name — Template Placeholder]",
-      email: "email@university.ac.th",
+      deptNameEn: "Department of Civil Engineering",
+      majorEn: "Major: Structural Engineering",
+      deptNameTh: "ภาควิชาวิศวกรรมโยธา",
+      majorTh: "สาขาวิชาวิศวกรรมโครงสร้าง",
+      academicTitle: "ผศ. ดร.",
+      fullName: "สสิกรณณ์ เหลืองวิชชเจริญ",
+      fullNameEn: "Asst. Prof. Dr. Sasikorn Leungvichcharoen",
+      email: "",
       portraitText: "Portrait\n3 : 4",
-      portraitUrl: "",
-      topicEn: "[English Research Topic Placeholder]",
-      topicTh: "[ชื่อหัวข้อผลงานวิจัยเด่นของอาจารย์ — ภาษาไทย]",
+      portraitUrl: "img/sasikorn-portrait.jpg",
+      topicEn:
+        "Structural Analysis, Wave Propagation, and Practical Engineering Applications",
+      topicTh:
+        "การวิเคราะห์โครงสร้าง การแพร่กระจายคลื่น และการประยุกต์ใช้ทางวิศวกรรม",
       biographyEn:
-        "[Template placeholder for the next faculty member's English profile: educational background, areas of expertise, and research experience.]",
+        "My research has focused on structural mechanics and elastic wave propagation, particularly the effects of interfaces, material properties, and initial stresses on structural response. I am also interested in applying structural analysis and numerical methods to practical civil engineering problems, including prefabricated steel systems and engineering information management.",
       biography:
-        "[พื้นที่ตัวอย่างสำหรับใส่ข้อมูลอาจารย์ท่านต่อไป: ระบุประวัติการศึกษา ความเชี่ยวชาญ และประสบการณ์การทำงานวิจัย สามารถเพิ่มหรือแก้ไขข้อมูลได้ที่ไฟล์ js/data.js]",
-      interestsLabelEn: "Field of interest:",
-      interestsEn: ["Interest 01", "Interest 02", "Interest 03"],
+        "งานวิจัยที่สนใจเกี่ยวข้องกับกลศาสตร์โครงสร้างและการแพร่กระจายคลื่นในวัสดุยืดหยุ่น โดยเฉพาะผลของรอยต่อ คุณสมบัติวัสดุ และความเค้นเริ่มต้นต่อการตอบสนองของโครงสร้าง นอกจากนี้ ยังสนใจประยุกต์ใช้การวิเคราะห์โครงสร้างและวิธีเชิงตัวเลขในงานวิศวกรรมโยธา เช่น ระบบโครงสร้างเหล็กสำเร็จรูปและการจัดการข้อมูลทางวิศวกรรม",
+      interestsLabelEn: "Research Interests:",
+      interestsEn: [
+        "Structural mechanics and analysis of elastic waves",
+        "Finite element analysis and numerical methods",
+        "Steel structures, prefabrication and modular systems"
+      ],
       interestsLabelTh: "หัวข้อวิจัยที่สนใจ:",
-      interestsTh: ["ความเชี่ยวชาญ 01", "ความเชี่ยวชาญ 02", "ความเชี่ยวชาญ 03"],
-      interests: ["Interest 01", "Interest 02", "Interest 03"],
-      inFutureLabelEn: "In the Future",
+      interestsTh: [
+        "กลศาสตร์โครงสร้างและการวิเคราะห์คลื่นในวัสดุยืดหยุ่น",
+        "การวิเคราะห์ไฟไนต์เอลิเมนต์และวิธีเชิงตัวเลข",
+        "โครงสร้างเหล็ก ระบบสำเร็จรูป และโครงสร้างแบบโมดูลาร์"
+      ],
+      interests: [
+        "Structural Mechanics & Elastic Waves",
+        "Finite Element & Numerical Methods",
+        "Prefabricated & Modular Steel Systems"
+      ],
+      inFutureLabelEn: "Future Research Directions",
       inFutureEn:
-        "[Future research direction and industrial applications in English.]",
-      afterGradLabelEn: "After Graduation",
+        "I plan to continue studying structural behavior using analytical and numerical approaches, with an emphasis on problems that can be linked to engineering practice and the development of simple computational tools.",
+      afterGradLabelEn: "Research and Applications",
       afterGradEn:
-        "[Expected outcomes and benefits for industry and students after graduation.]",
-      inFutureLabelTh: "ในอนาคต",
+        "My work includes studies of elastic-wave behavior and structural response, together with collaborative work on knock-down steel frame systems and digital preservation of engineering drawings for building management.",
+      inFutureLabelTh: "แนวทางการวิจัยในอนาคต",
       inFutureTh:
-        "[แนวทางการศึกษาวิจัยต่อยอดและการประยุกต์ใช้งานในอนาคต]",
-      afterGradLabelTh: "เมื่อสิ้นสุดการศึกษา",
+        "มุ่งศึกษาพฤติกรรมของโครงสร้างด้วยวิธีวิเคราะห์และวิธีเชิงตัวเลขอย่างต่อเนื่อง โดยเน้นปัญหาที่เชื่อมโยงกับงานวิศวกรรมจริง และการพัฒนาเครื่องมือคำนวณที่ใช้งานได้ไม่ซับซ้อน",
+      afterGradLabelTh: "งานวิจัยและการประยุกต์ใช้",
       afterGradTh:
-        "[ผลลัพธ์ที่คาดหวังและการนำผลงานวิจัยไปใช้ประโยชน์จริง]",
-      figures: [],
-      publications: ["[Author(s). Title. Journal, Year. DOI]"],
+        "ผลงานที่ผ่านมาเกี่ยวข้องกับพฤติกรรมการแพร่กระจายคลื่นและการตอบสนองของโครงสร้าง รวมทั้งความร่วมมือด้านระบบโครงสร้างเหล็กแบบถอดประกอบ และการอนุรักษ์แบบก่อสร้างเดิมในรูปแบบดิจิทัลเพื่อการบริหารจัดการอาคาร",
+      figures: [
+        {
+          url: "img/sasikorn-fig1.jpg",
+          captionEn:
+            "Elastic wave cloaking simulation (Wijeyewickrema & Leungvichcharoen, 2022, Fig. 3)",
+          captionTh:
+            "ผลการจำลองคลื่นในระบบพรางคลื่น (Wijeyewickrema และ Leungvichcharoen, 2022, รูปที่ 3)"
+        },
+        {
+          url: "img/sasikorn-fig2.jpg",
+          captionEn:
+            "Knock-down steel frame prototype (NUSTARC 2025 presentation)",
+          captionTh: "โครงสร้างเหล็กแบบถอดประกอบ (สไลด์นำเสนอ NUSTARC 2025)"
+        }
+      ],
+      pubsLabelEn: "Selected Publications and Conference Presentations",
+      publicationsEn: [
+        "Wijeyewickrema, A. C. and Leungvichcharoen, S. (2022). Effect of Imperfect Contact on the Cloaking of a Circular Elastic Cylinder from Antiplane Elastic Waves. Mechanics Research Communications, 124, 103964.",
+        "Tuttipongsawat, P., Wijeyewickrema, A. C. and Leungvichcharoen, S. (2020). Cloaking of a Circular Cylindrical Elastic Inclusion from Antiplane Elastic Waves and Resonance Effects. Wave Motion, 94, 102491.",
+        "Leungvichcharoen, S., Subsomboon, K., Kaewpoonsuk, P., Wijeyewickrema, A. C. and Moraray, P. (2025). Sustainable Knock-Down Housing Steel Structural Frame System: Reducing Transport Energy and Material Waste through Precision Prefabrication. NUSTARC 2025 (Abstract only)."
+      ],
+      pubsLabelTh: "ผลงานตีพิมพ์และนำเสนอที่คัดเลือก",
+      publicationsTh: [
+        "Wijeyewickrema, A. C. and Leungvichcharoen, S. (2022). Effect of Imperfect Contact on the Cloaking of a Circular Elastic Cylinder from Antiplane Elastic Waves. Mechanics Research Communications, 124, 103964.",
+        "Tuttipongsawat, P., Wijeyewickrema, A. C. and Leungvichcharoen, S. (2020). Cloaking of a Circular Cylindrical Elastic Inclusion from Antiplane Elastic Waves and Resonance Effects. Wave Motion, 94, 102491.",
+        "Leungvichcharoen, S., Subsomboon, K., Kaewpoonsuk, P., Wijeyewickrema, A. C. and Moraray, P. (2025). Sustainable Knock-Down Housing Steel Structural Frame System: Reducing Transport Energy and Material Waste through Precision Prefabrication. NUSTARC 2025 (Abstract only)."
+      ],
+      publications: [
+        "Wijeyewickrema, A. C. and Leungvichcharoen, S. (2022). Effect of Imperfect Contact on the Cloaking of a Circular Elastic Cylinder from Antiplane Elastic Waves. Mechanics Research Communications, 124, 103964.",
+        "Tuttipongsawat, P., Wijeyewickrema, A. C. and Leungvichcharoen, S. (2020). Cloaking of a Circular Cylindrical Elastic Inclusion from Antiplane Elastic Waves and Resonance Effects. Wave Motion, 94, 102491.",
+        "Leungvichcharoen, S., Subsomboon, K., Kaewpoonsuk, P., Wijeyewickrema, A. C. and Moraray, P. (2025). Sustainable Knock-Down Housing Steel Structural Frame System: Reducing Transport Energy and Material Waste through Precision Prefabrication. NUSTARC 2025 (Abstract only)."
+      ],
       research: {
         code: "04",
-        title: "[ชื่อผลงานวิจัยเด่นของอาจารย์ — Research Title Goes Here]",
-        titleEn: "[English Research Title Placeholder]",
+        title:
+          "การวิเคราะห์โครงสร้าง การแพร่กระจายคลื่น และการประยุกต์ใช้ทางวิศวกรรม",
+        titleEn:
+          "Structural Analysis, Wave Propagation, and Practical Engineering Applications",
         abstract:
-          "[บทคัดย่อ (Abstract): อธิบายที่มา ความสำคัญ และวัตถุประสงค์ของงานวิจัยชิ้นนี้โดยสังเขป]",
+          "กลศาสตร์โครงสร้างและการแพร่กระจายคลื่นในวัสดุยืดหยุ่น การวิเคราะห์ไฟไนต์เอลิเมนต์และวิธีเชิงตัวเลข รวมถึงระบบโครงสร้างเหล็กสำเร็จรูปและการจัดการข้อมูลทางวิศวกรรม",
         methodology:
-          "[วิธีดำเนินการวิจัย (Methodology): ระบุกระบวนการทดลอง เครื่องมือ หรืออัลกอริทึมที่ใช้]",
+          "ใช้วิธีวิเคราะห์และวิธีเชิงตัวเลขศึกษาผลของรอยต่อ คุณสมบัติวัสดุ และความเค้นเริ่มต้นต่อการตอบสนองของโครงสร้างและระบบพรางคลื่น",
         findings:
-          "[ผลลัพธ์และการนำไปใช้ประโยชน์ (Key findings & Impact): สรุปผลสำเร็จและการประยุกต์ใช้งานจริง]",
-        figureCaption: "Fig. 4 — [คำอธิบายรูปภาพประกอบหรือกราฟผลการทดลอง]",
-        figureUrl: "",
-        publication: "[Author(s). Title. Journal, Year. DOI]",
-        link: "https://eng.nu.ac.th"
+          "ได้แบบจำลองการแพร่กระจายคลื่นยืดหยุ่นและการพัฒนาระบบโครงสร้างเหล็กแบบถอดประกอบรวมถึงการอนุรักษ์แบบก่อสร้างดิจิทัล",
+        figureCaption:
+          "ผลการจำลองคลื่นในระบบพรางคลื่น และโครงสร้างเหล็กแบบถอดประกอบ",
+        figureUrl: "img/sasikorn-fig1.jpg",
+        publication:
+          "Wijeyewickrema & Leungvichcharoen, Mechanics Research Communications (2022); Tuttipongsawat et al., Wave Motion (2020); Leungvichcharoen et al., NUSTARC (2025).",
+        link: "https://www.eng.nu.ac.th"
       }
     }
   ]
