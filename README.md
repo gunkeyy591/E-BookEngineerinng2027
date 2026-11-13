@@ -1,4 +1,4 @@
-# Faculty of Engineering · Research E-Book (2026–2027)
+# Faculty of Engineering · Research E-Book (2027)
 
 เว็บไซต์หนังสืออิเล็กทรอนิกส์ (Research E-Book) สำหรับนำเสนอทำเนียบผลงานวิจัยและนวัตกรรมคณาจารย์ **คณะวิศวกรรมศาสตร์ มหาวิทยาลัยนเรศวร (Faculty of Engineering, Naresuan University)** ในรูปแบบหนังสือพลิกหน้า 3 มิติ 2 ภาษาคู่ขนาน (อังกฤษ–ไทย) สไตล์พิมพ์เขียววิศวกรรม (Engineering Blueprint)
 

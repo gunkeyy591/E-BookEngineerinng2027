@@ -13,10 +13,10 @@ window.DEFAULT_EBOOK_DATA = {
   meta: {
     facultyTitle: "Faculty of Engineering",
     university: "Naresuan University",
-    showcaseYear: "2026–2027",
-    coverTitleLine1: "Engineering",
-    coverTitleLine2: "Research",
-    coverTitleLine3: "Collection",
+    showcaseYear: "2027",
+    coverTitleLine1: "Faculty of",
+    coverTitleLine2: "Engineering",
+    coverTitleLine3: "Researcher Profiles",
     coverSubtitle: "ทำเนียบผลงานวิจัยและนวัตกรรมคณาจารย์ คณะวิศวกรรมศาสตร์",
     insideCoverDesc:
       "หนังสืออิเล็กทรอนิกส์ (Research E-Book) เล่มนี้รวบรวมประวัติ ความเชี่ยวชาญ และผลงานวิจัยที่โดดเด่นของคณาจารย์ประจำคณะวิศวกรรมศาสตร์ เพื่อเผยแพร่องค์ความรู้และเชื่อมโยงความร่วมมือกับภาคอุตสาหกรรม",
