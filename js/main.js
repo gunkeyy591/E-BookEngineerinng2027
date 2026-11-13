@@ -78,6 +78,41 @@
     );
   }
 
+  function makeSpreadSideSvg(isRight) {
+    var leftFill = isRight ? "#f4f7fc" : "#16407a";
+    var leftStroke = isRight ? "#8ea4c4" : "#0b2447";
+    var rightFill = isRight ? "#d9791a" : "#f4f7fc";
+    var rightStroke = isRight ? "#b55f0e" : "#8ea4c4";
+    var linesD = isRight
+      ? "M11.2 4.2H14.8M11.2 6.6H14.8M11.2 9H13.6"
+      : "M3.2 4.2H6.8M3.2 6.6H6.8M3.2 9H5.6";
+    return (
+      '<svg class="guide-ico" viewBox="0 0 18 14" width="15" height="12" fill="none" aria-hidden="true">' +
+      '<path d="M1.5 2.2C1.5 1.65 1.95 1.2 2.5 1.2H8.5V12.2H2.5C1.95 12.2 1.5 11.75 1.5 11.2V2.2Z" fill="' +
+      leftFill +
+      '" stroke="' +
+      leftStroke +
+      '" stroke-width="1"/>' +
+      '<path d="M9.5 1.2H15.5C16.05 1.2 16.5 1.65 16.5 2.2V11.2C16.5 11.75 16.05 12.2 15.5 12.2H9.5V1.2Z" fill="' +
+      rightFill +
+      '" stroke="' +
+      rightStroke +
+      '" stroke-width="1"/>' +
+      '<line x1="9" y1="1.2" x2="9" y2="12.8" stroke="#0b2447" stroke-width="1.2"/>' +
+      '<path d="' +
+      linesD +
+      '" stroke="#ffffff" stroke-width="1" stroke-linecap="round"/>' +
+      "</svg>"
+    );
+  }
+
+  var GUIDE_TIP_SVG =
+    '<svg class="guide-ico" viewBox="0 0 16 16" width="12" height="12" fill="none" aria-hidden="true">' +
+    '<path d="M8 2.2C5.9 2.2 4.2 3.9 4.2 6C4.2 7.45 5.0 8.7 6.1 9.35V10.9C6.1 11.25 6.38 11.5 6.72 11.5H9.28C9.62 11.5 9.9 11.25 9.9 10.9V9.35C11.0 8.7 11.8 7.45 11.8 6C11.8 3.9 10.1 2.2 8 2.2Z" fill="#fde7c8" stroke="#d9791a" stroke-width="1.2" stroke-linejoin="round"/>' +
+    '<path d="M6.4 13.1H9.6" stroke="#0b2447" stroke-width="1.2" stroke-linecap="round"/>' +
+    '<path d="M8 0.5V1.3M2.2 2.4L2.8 3.0M13.8 2.4L13.2 3.0M1.1 6.2H2.0M14.0 6.2H14.9" stroke="#d9791a" stroke-width="1.1" stroke-linecap="round"/>' +
+    "</svg>";
+
   var DISCIPLINES = [
     {
       key: "civil",
@@ -375,16 +410,21 @@
         "</div>" +
         '<div class="guide-grid">' +
         '<div class="guide-col">' +
-        "<b>📘 หน้าซ้าย (Left · EN)</b>" +
-        "<p>ประวัติและผลงานภาษาอังกฤษ Research Highlights, Figures &amp; Publications</p>" +
+        "<b>" +
+        makeSpreadSideSvg(false) +
+        "<span>หน้าซ้าย (Left · EN)</span></b>" +
+        "<p>ประวัติและผลงานวิจัยภาษาอังกฤษ (Figures &amp; Publications)</p>" +
         "</div>" +
         '<div class="guide-col th">' +
-        "<b>📙 หน้าขวา (Right · TH)</b>" +
-        "<p>ข้อมูลภาษาไทย ความสำคัญของงานวิจัย และรางวัลนวัตกรรมเด่น</p>" +
+        "<b>" +
+        makeSpreadSideSvg(true) +
+        "<span>หน้าขวา (Right · TH)</span></b>" +
+        "<p>ข้อมูลภาษาไทย ความสำคัญของงานวิจัย และรางวัลเด่น</p>" +
         "</div>" +
         "</div>" +
         '<div class="guide-tip">' +
-        "<span>💡 คลิกที่รายชื่ออาจารย์ในสารบัญ เพื่อพลิกหน้าไปยังผลงานนั้นทันที</span>" +
+        GUIDE_TIP_SVG +
+        "<span>คลิกที่รายชื่ออาจารย์ในสารบัญ เพื่อพลิกหน้าไปยังผลงานนั้นทันที</span>" +
         "</div>" +
         "</div>" +
         '<div class="folio"><span>Contents</span><span>4</span></div>' +
