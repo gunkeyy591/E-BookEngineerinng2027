@@ -6,6 +6,15 @@
   var secs = [];
 
   var bookWrap = document.querySelector("main");
+  var bookStage = document.getElementById("bookStage") || bookWrap;
+  var touchTapBar = document.getElementById("touchTapBar");
+  var tapBtnPrev = document.getElementById("tapBtnPrev");
+  var tapBtnNext = document.getElementById("tapBtnNext");
+  var tapPageLabel = document.getElementById("tapPageLabel");
+  var tapFlashPrev = document.getElementById("tapFlashPrev");
+  var tapFlashNext = document.getElementById("tapFlashNext");
+  var tapFlashTimer = null;
+  var lastTouchActionAt = 0;
   var pageInput = document.getElementById("pageInput");
   var totalEl = document.getElementById("total");
   var gotoForm = document.getElementById("goto");
@@ -726,10 +735,151 @@
     return html.join("");
   }
 
+  function isTouchOrTabletUI() {
+    var coarse = false;
+    var noHover = false;
+    try {
+      coarse = !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
+      noHover = !!(window.matchMedia && window.matchMedia("(hover: none)").matches);
+    } catch (err) {}
+    return (coarse && noHover) || window.innerWidth <= 1180;
+  }
+
+  function syncTouchUI() {
+    var active = isTouchOrTabletUI();
+    document.documentElement.classList.toggle("touch-ui", active);
+    return active;
+  }
+
+  function flashTapSide(dir) {
+    var el = dir === "prev" ? tapFlashPrev : tapFlashNext;
+    var other = dir === "prev" ? tapFlashNext : tapFlashPrev;
+    if (other) other.classList.remove("active");
+    if (!el) return;
+    el.classList.remove("active");
+    void el.offsetWidth;
+    el.classList.add("active");
+    clearTimeout(tapFlashTimer);
+    tapFlashTimer = setTimeout(function () {
+      if (tapFlashPrev) tapFlashPrev.classList.remove("active");
+      if (tapFlashNext) tapFlashNext.classList.remove("active");
+    }, 340);
+  }
+
+  function bindBookTouchTap(bookEl) {
+    var tapTrack = null;
+
+    bookEl.addEventListener(
+      "touchstart",
+      function (e) {
+        if (!pf || resDetailModal.classList.contains("open")) {
+          tapTrack = null;
+          return;
+        }
+        if (e.touches.length !== 1) {
+          tapTrack = null;
+          return;
+        }
+        var t = e.touches[0];
+        tapTrack = {
+          x: t.clientX,
+          y: t.clientY,
+          time: Date.now(),
+          pageIdx: pf.getCurrentPageIndex(),
+          target: e.target,
+          moved: false
+        };
+      },
+      { passive: true }
+    );
+
+    bookEl.addEventListener(
+      "touchmove",
+      function (e) {
+        if (!tapTrack) return;
+        if (e.touches.length !== 1) {
+          tapTrack = null;
+          return;
+        }
+        var t = e.touches[0];
+        if (Math.abs(t.clientX - tapTrack.x) > 12 || Math.abs(t.clientY - tapTrack.y) > 12) {
+          tapTrack.moved = true;
+        }
+      },
+      { passive: true }
+    );
+
+    bookEl.addEventListener("touchcancel", function () {
+      tapTrack = null;
+    });
+
+    bookEl.addEventListener("touchend", function (e) {
+      if (!tapTrack || !pf) return;
+      var start = tapTrack;
+      tapTrack = null;
+      if (start.moved || Date.now() - start.time > 450) return;
+      if (resDetailModal.classList.contains("open")) return;
+
+      var targetEl = start.target && start.target.nodeType === 1 ? start.target : e.target;
+      if (!targetEl || !targetEl.closest) return;
+
+      var tocLi = targetEl.closest(".toc li[data-go]");
+      if (tocLi) {
+        lastTouchActionAt = Date.now();
+        pf.flip(+tocLi.dataset.go);
+        return;
+      }
+
+      if (targetEl.closest("[data-open-detail], a, button, input, select, textarea, label")) {
+        return;
+      }
+
+      var endTouch = e.changedTouches && e.changedTouches[0];
+      var endX = endTouch ? endTouch.clientX : start.x;
+      var endY = endTouch ? endTouch.clientY : start.y;
+      if (Math.abs(endX - start.x) > 12 || Math.abs(endY - start.y) > 12) return;
+
+      var rect = bookEl.getBoundingClientRect();
+      if (!rect.width) return;
+
+      var tapPageAtStart = start.pageIdx;
+      var relX = endX - rect.left;
+
+      setTimeout(function () {
+        if (!pf) return;
+        if (pf.getState() !== "read" || pf.getCurrentPageIndex() !== tapPageAtStart) {
+          return;
+        }
+        var n = pf.getPageCount();
+        if (n <= 1) return;
+
+        if (tapPageAtStart === 0) {
+          flashTapSide("next");
+          pf.flipNext();
+        } else if (tapPageAtStart === n - 1) {
+          flashTapSide("prev");
+          pf.flipPrev();
+        } else if (relX < rect.width * 0.5) {
+          if (tapPageAtStart > 0) {
+            flashTapSide("prev");
+            pf.flipPrev();
+          }
+        } else if (tapPageAtStart < n - 1) {
+          flashTapSide("next");
+          pf.flipNext();
+        }
+      }, 24);
+    });
+  }
+
   function getOptimalBookMetrics() {
+    var hasTouchBar = syncTouchUI();
     var rect = bookWrap.getBoundingClientRect();
-    var availW = Math.max(300, rect.width - 20);
-    var availH = Math.max(360, rect.height - 14);
+    var availW = Math.max(280, rect.width - 20);
+    var barH = hasTouchBar && touchTapBar ? touchTapBar.offsetHeight + 16 : 0;
+    var singleMinH = window.innerHeight < 520 ? 180 : 360;
+    var spreadMinH = window.innerHeight < 520 ? 180 : 380;
+    var availH = Math.max(180, rect.height - 14 - barH);
     var isSingle = window.innerWidth < 760;
     var baseW = 512;
     var baseH = 630;
@@ -738,11 +888,11 @@
     var pageH, pageW;
     if (isSingle) {
       pageH = Math.min(availH, Math.floor(availW / aspect));
-      pageH = Math.max(360, Math.min(pageH, 1300));
+      pageH = Math.max(singleMinH, Math.min(pageH, 1300));
       pageW = Math.floor(pageH * aspect);
     } else {
       pageH = Math.min(availH, Math.floor((availW / 2) / aspect));
-      pageH = Math.max(380, Math.min(pageH, 1300));
+      pageH = Math.max(spreadMinH, Math.min(pageH, 1300));
       pageW = Math.floor(pageH * aspect);
     }
 
@@ -765,6 +915,13 @@
       return;
     }
 
+    if (pf) {
+      try {
+        pf.destroy();
+      } catch (err) {}
+      pf = null;
+    }
+
     var existingBook = document.getElementById("book");
     if (existingBook) existingBook.remove();
 
@@ -777,7 +934,13 @@
     newBook.style.setProperty("--page-scale", +(metrics.pageH / 630).toFixed(4));
     newBook.style.setProperty("--res-page-scale", +(metrics.pageH / 915).toFixed(4));
     newBook.innerHTML = buildBookHTML();
-    bookWrap.insertBefore(newBook, document.getElementById("fb"));
+
+    var targetParent = bookStage || bookWrap;
+    var insertBeforeEl =
+      tapFlashPrev && tapFlashPrev.parentNode === targetParent
+        ? tapFlashPrev
+        : document.getElementById("fb");
+    targetParent.insertBefore(newBook, insertBeforeEl || null);
 
     // Populate jump select
     jump.innerHTML = "";
@@ -793,9 +956,9 @@
       width: metrics.pageW,
       height: metrics.pageH,
       size: "fixed",
-      minWidth: 240,
+      minWidth: 140,
       maxWidth: 1100,
-      minHeight: 340,
+      minHeight: 160,
       maxHeight: 1350,
       maxShadowOpacity: 0.55,
       showCover: true,
@@ -810,11 +973,13 @@
     pf.loadFromHTML(pageNodes);
 
     pf.on("flip", upd);
+    bindBookTouchTap(newBook);
 
     // Bind TOC links inside book
     newBook.querySelectorAll(".toc li[data-go]").forEach(function (li) {
       li.addEventListener("click", function (e) {
         e.stopPropagation();
+        if (Date.now() - lastTouchActionAt < 500) return;
         pf.flip(+li.dataset.go);
       });
     });
@@ -848,6 +1013,10 @@
       if (i >= s[1]) v = s[1];
     });
     jump.value = v;
+
+    if (tapPageLabel) tapPageLabel.textContent = (i + 1) + " / " + n;
+    if (tapBtnPrev) tapBtnPrev.disabled = i <= 0;
+    if (tapBtnNext) tapBtnNext.disabled = i >= n - 1;
 
     var bookEl = document.getElementById("book");
     if (bookEl) {
@@ -1000,6 +1169,20 @@
   document.getElementById("next").onclick = function () {
     if (pf) pf.flipNext();
   };
+  if (tapBtnPrev) {
+    tapBtnPrev.onclick = function () {
+      if (!pf || pf.getCurrentPageIndex() <= 0) return;
+      flashTapSide("prev");
+      pf.flipPrev();
+    };
+  }
+  if (tapBtnNext) {
+    tapBtnNext.onclick = function () {
+      if (!pf || pf.getCurrentPageIndex() >= pf.getPageCount() - 1) return;
+      flashTapSide("next");
+      pf.flipNext();
+    };
+  }
   document.getElementById("brandHome").onclick = function () {
     if (pf) pf.flip(0);
   };
